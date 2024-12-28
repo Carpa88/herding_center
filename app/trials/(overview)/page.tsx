@@ -7,7 +7,7 @@ const page = () => {
     <div className="w-full">
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Поиск по соревнованиям..." />
-        <CreateButton href="/trial/create" name="Создать соревнование" />
+        <CreateButton href="/trials/create" name="Создать соревнование" />
       </div>
     </div>
   )
