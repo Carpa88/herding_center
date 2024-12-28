@@ -7,3 +7,8 @@ export interface IFormState<T> {
   errors: T;
   message: string;
 }
+
+export interface IData {
+  id: string;
+  [key: string]: unknown;
+}
