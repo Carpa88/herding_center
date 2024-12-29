@@ -1,4 +1,5 @@
 'use server';
+
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -32,8 +33,6 @@ export const createTrial = async (
       INSERT INTO trials (name, start_at, ends_on, judge_id, description)
       VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description})
     `;
-    revalidatePath('/trials');
-    redirect('/trials');
   } catch (error) {
     console.error('Database error:', error);
     return {
@@ -41,4 +40,6 @@ export const createTrial = async (
       message: 'Ошибка создания записи',
     };
   }
+  revalidatePath('/trials');
+  redirect('/trials');
 };
