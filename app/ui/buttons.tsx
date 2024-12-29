@@ -33,7 +33,7 @@ export const UpdateButtonIcon = ({
 export const DeleteButton = ({
   onClick,
 }: {
-  onClick?: () => void | Promise<void>;
+  onClick: () => void | Promise<void>;
 }) => {
   return (
     <button

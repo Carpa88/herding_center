@@ -1,7 +1,8 @@
+'use server'
+
 import { sql } from '@vercel/postgres';
 import { ITEMS_PER_PAGE } from '../consts';
 import { ITrial } from '../types';
-import { revalidatePath } from 'next/cache';
 
 export const fetchTrialsPages = async (query: string) => {
   try {
@@ -57,13 +58,12 @@ export const fetchFilteredTrials = async (
   }
 };
 
-export const deleteTrial = async(id: string) => {
-  try{
+export const deleteTrial = async (id: string) => {
+  try {
     await sql`DELETE FROM trials WHERE id = ${id}`;
-  }catch(error){
-    console.error(error)
+    return { message: 'Соревнование удалено', success: true };
+  } catch (error) {
+    console.error('Delete operation failed:', error);
     return { message: 'Ошибка доступа к базе данных.', success: false };
   }
-  revalidatePath('/trial');
-  return { message: 'Соревнование удалено', success: true };
-}
+};

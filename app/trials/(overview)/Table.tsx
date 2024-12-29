@@ -1,14 +1,28 @@
+'use client'
 import { DeleteButton, UpdateButtonIcon } from '@app/ui/buttons';
 import { ITrial } from '../types';
 import { colTrials } from '../consts';
+import { deleteTrial } from './actions';
+import { useState } from 'react';
 
-const Table = ({ data }: { data?: ITrial[] }) => {
+const Table = ({ data }: { data: ITrial[] }) => {
+  const [currentData, setCurrentData] = useState(data);
+  
+  const handleClick = async(id: string): Promise<void> => {
+    const result = await deleteTrial(id);
+    if (!result.success) {
+      alert(result.message);
+    } else {
+      setCurrentData(currentData?.filter(item => item.id !== id))
+      console.log(result.message);
+    }
+  }
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-slate-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {data?.map((item) => (
+            {currentData?.map((item) => (
               <div
                 key={item.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
@@ -21,7 +35,7 @@ const Table = ({ data }: { data?: ITrial[] }) => {
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdateButtonIcon href={`/trial/${item.id}/edit`} />
-                    <DeleteButton />
+                    <DeleteButton onClick={()=>handleClick(item.id)}/>
                   </div>
                 </div>
                 <div className="flex items-center justify-between border-b pb-4">
@@ -63,7 +77,7 @@ const Table = ({ data }: { data?: ITrial[] }) => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {data?.map((item) => (
+              {currentData?.map((item) => (
                 <tr
                   key={item.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
@@ -79,7 +93,7 @@ const Table = ({ data }: { data?: ITrial[] }) => {
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <UpdateButtonIcon href={`/trial/${item.id}/edit`} />
-                      <DeleteButton />
+                      <DeleteButton onClick={() => handleClick(item.id)}/>
                     </div>
                   </td>
                 </tr>
