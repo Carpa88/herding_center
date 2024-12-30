@@ -1,4 +1,5 @@
 import { initialState } from '@app/lib/consts';
+import { ITrialError } from './types';
 
 export const ITEMS_PER_PAGE = 10;
 
@@ -10,7 +11,8 @@ export const colTrials = [
             'Описание',
           ]
 
-export const createTrialErrors = {
+export const createTrialErrors: ITrialError = {
+  id:[],
   name: [],
   start_at: [],
   ends_on: [],

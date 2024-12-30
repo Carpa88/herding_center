@@ -20,7 +20,7 @@ export const userNavigation = [
   { name: 'Выйти', href: '#' },
 ];
 
-export const initialState = (obj: Record<string, (string | number | boolean )[]>) => ({
+export const initialState= <T>(obj:T) => ({
   errors: obj,
   message: '',
 });
