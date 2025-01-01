@@ -9,7 +9,7 @@ export interface ITrial {
   description?: string;
 }
 
-interface ITrialError {
+export interface ITrialError {
   id: string[];
   name: string[];
   start_at: string[];
