@@ -4,6 +4,7 @@ import { ITrial } from '../types';
 import { colTrials } from '../consts';
 import { deleteTrial } from './actions';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const Table = ({ data }: { data: ITrial[] }) => {
   const [currentData, setCurrentData] = useState(data);
@@ -30,11 +31,11 @@ const Table = ({ data }: { data: ITrial[] }) => {
                 <div className="flex w-full items-center justify-between">
                   <div>
                     <p className="text-xl font-medium text-slate-900">
-                      {item.name}
+                      <Link href={`/trials/${item.id}/details`}>{item.name}</Link>
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateButtonIcon href={`/trial/${item.id}/edit`} />
+                    <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
                     <DeleteButton onClick={()=>handleClick(item.id)}/>
                   </div>
                 </div>
@@ -82,17 +83,23 @@ const Table = ({ data }: { data: ITrial[] }) => {
                   key={item.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
-                  {Object.entries(item).map(
-                    ([key, value]) =>
-                      key !== 'id' && (
+                  {Object.entries(item).map(([key, value]) => {
+                    if (key !== 'id') {
+                      return key === 'name' ? (
+                        <Link href={`/trials/${item.id}/details`} key={key}>
+                          <td className="whitespace-nowrap py-3 pr-3">
+                            {value}
+                          </td>
+                        </Link>
+                      ) : (
                         <td className="whitespace-nowrap py-3 pr-3" key={key}>
                           {value}
                         </td>
-                      )
-                  )}
+                      );
+                    }})}
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateButtonIcon href={`/trial/${item.id}/edit`} />
+                      <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
                       <DeleteButton onClick={() => handleClick(item.id)}/>
                     </div>
                   </td>
