@@ -23,8 +23,8 @@ const MobileNavigation = ({pathname}: {pathname: string}) => {
             aria-current={item.href === pathname ? 'page' : undefined}
             className={clsx(
               item.href === pathname
-                ? 'bg-slate-900 text-white'
-                : 'text-slate-300 hover:bg-slate-700 hover:text-white',
+                ? 'bg-amber-900 text-white'
+                : 'text-amber-300 hover:bg-amber-700 hover:text-white',
               'block rounded-md px-3 py-2 text-base font-medium'
             )}
           >
@@ -32,7 +32,7 @@ const MobileNavigation = ({pathname}: {pathname: string}) => {
           </DisclosureButton>
         ))}
       </div>
-      <div className="border-t border-slate-700 pb-3 pt-4">
+      <div className="border-t border-amber-700 pb-3 pt-4">
         <div className="flex items-center px-5">
           <div className="shrink-0">
             {user.imageUrl ? <Image
@@ -51,7 +51,7 @@ const MobileNavigation = ({pathname}: {pathname: string}) => {
           </div>
           <button
             type="button"
-            className="relative ml-auto shrink-0 rounded-full bg-slate-800 p-1 text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-800"
+            className="relative ml-auto shrink-0 rounded-full bg-amber-800 p-1 text-amber-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800"
           >
             <span className="absolute -inset-1.5" />
             <span className="sr-only">View notifications</span>

@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Disclosure,
 } from '@headlessui/react';
@@ -14,7 +15,7 @@ const Nav = () => {
   const isAuthorized = true;
 
   return (
-    <Disclosure as="nav" className="bg-slate-800">
+    <Disclosure as="nav" className="bg-amber-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">

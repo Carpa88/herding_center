@@ -16,7 +16,7 @@ const ProfileNavFullScreen = ({isAuthorized}: {isAuthorized:boolean}) => {
     <div className="ml-4 flex items-center md:ml-6">
       <button
         type="button"
-        className="relative rounded-full bg-slate-800 p-1 text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-800"
+        className="relative rounded-full bg-amber-800 p-1 text-amber-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800"
       >
         <span className="absolute -inset-1.5" />
         <span className="sr-only">View notifications</span>
@@ -27,7 +27,7 @@ const ProfileNavFullScreen = ({isAuthorized}: {isAuthorized:boolean}) => {
       {isAuthorized ? (
         <Menu as="div" className="relative ml-3">
           <div>
-            <MenuButton className="relative flex max-w-xs items-center rounded-full bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-800">
+            <MenuButton className="relative flex max-w-xs items-center rounded-full bg-amber-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800">
               <span className="absolute -inset-1.5" />
               <span className="sr-only">Open user menu</span>
               {user.imageUrl ?

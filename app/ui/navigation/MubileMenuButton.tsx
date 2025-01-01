@@ -8,7 +8,7 @@ import {
 
 const MubileMenuButton = () => {
   return (
-    <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-slate-800 p-2 text-slate-400 hover:bg-slate-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-800">
+    <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-amber-800 p-2 text-slate-400 hover:bg-amber-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800">
       <span className="absolute -inset-0.5" />
       <span className="sr-only">Open main menu</span>
       <Bars3Icon
