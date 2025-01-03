@@ -1,46 +1,7 @@
-import { ClockIcon, HeartIcon, HomeIcon, SunIcon, UserCircleIcon, VideoCameraIcon } from '@heroicons/react/24/outline'
-
-const features = [
-  {
-    name: 'Уютные номера',
-    description:
-      'Индивидуальные комнаты для каждого питомца с мягкими лежанками, игрушками и комфортной атмосферой.',
-    icon: HomeIcon, // Используйте подходящий икон компонент, например, из Heroicons
-  },
-  {
-    name: 'Круглосуточный уход',
-    description:
-      'Наши сотрудники заботятся о вашем питомце 24/7, чтобы он чувствовал себя как дома.',
-    icon: ClockIcon,
-  },
-  {
-    name: 'Видеонаблюдение',
-    description:
-      'Следите за своим питомцем через камеры наблюдения в режиме реального времени прямо со своего телефона.',
-    icon: VideoCameraIcon,
-  },
-  {
-    name: 'Прогулки на свежем воздухе',
-    description:
-      'Ежедневные прогулки и игры на закрытой территории, чтобы питомец оставался активным и счастливым.',
-    icon: SunIcon,
-  },
-  {
-    name: 'Ветеринарный контроль',
-    description:
-      'Круглосуточный доступ к ветеринару для обеспечения здоровья и безопасности вашего питомца.',
-    icon: HeartIcon,
-  },
-  {
-    name: 'Индивидуальный подход',
-    description:
-      'Мы учитываем предпочтения каждого питомца: режим питания, любимые игры и другие привычки.',
-    icon: UserCircleIcon,
-  },
-];
+import { features } from "@app/lib/main_const";
 
 const Features = () => (
-    <div className="bg-white py-24 sm:py-16">
+    <div className="py-24 sm:py-16" id='features'>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/5 font-semibold text-amber-600">Любовь и забота</h2>

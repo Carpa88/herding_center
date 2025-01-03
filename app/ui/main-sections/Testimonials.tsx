@@ -55,7 +55,7 @@ const Testimonials = () => {
         <TestimonialDlock item={testimonials[1]} mainBlock />
         <div className='md:columns-2 sm:columns-1'>
         {testimonials.slice(1, 6).map(item => 
-            <TestimonialDlock item={item} key={item.userName} />)}
+          <TestimonialDlock item={item} key={item.userName} />)}
         </div>
       </div>
     </div>
