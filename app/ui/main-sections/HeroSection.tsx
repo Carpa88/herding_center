@@ -36,14 +36,17 @@ const HeroSection = () => (
             </div>
           </div>
           <div className='hidden md:block w-[50%]'>
-            <Image
-              alt="Product screenshot"
-              src="/herding.jpg"
-              width={1432}
-              height={847}
-              priority={false}
-              className="max-w-none rounded-xl shadow-xl ring-1 ring-slate-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0 max-h-22"
-            />
+            <div className="relative min-h-[40rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm">
+              <div className="absolute inset-x-5 bottom-0 top-10 overflow-hidden rounded-[4cqw] bg-slate-900 shadow-xl">
+                <Image
+                  width={500}
+                  height={500}
+                  className="size-full object-cover object-top"
+                  src="/herding.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
