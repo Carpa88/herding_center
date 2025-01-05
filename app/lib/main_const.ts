@@ -1,4 +1,5 @@
-import { ITestimonial } from "./main_types";
+import { ISscial, ITestimonial } from "./main_types";
+import { FaFacebookF, FaVk, FaTelegramPlane, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 export const testimonials: ITestimonial[] = [
   {
@@ -149,3 +150,31 @@ export const tiers = [
     featured: true,
   },
 ];
+
+export const socials: ISscial[] = [
+  {
+    name: 'Herding Club Belarus',
+    value: '@herdingBY',
+    icon: FaInstagram,
+  },
+  {
+    name: 'Herding Club Belarus',
+    value: '@herdingBY',
+    icon: FaFacebookF,
+  },
+  {
+    name: 'Пастухи Беларуси',
+    value: '@herdingBY',
+    icon: FaVk,
+  },
+  {
+    name: 'Пастухи Беларуси',
+    value: '@herdingBY',
+    icon: FaTelegramPlane,
+  },
+  {
+    name: 'Катусова Катерина',
+    value: '+375 29 123-34-456',
+    icon: FaWhatsapp,
+  }
+]
