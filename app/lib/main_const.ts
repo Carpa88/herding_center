@@ -178,3 +178,38 @@ export const socials: ISscial[] = [
     icon: FaWhatsapp,
   }
 ]
+
+export const footer = {
+  company: {
+    name: 'Комплекс',
+    '/#about': 'О Компании',
+    '/#features': 'Наши услуги',
+    '/#testimonials': 'Отзывы',
+    '/#prices': 'Цены',
+    '/#start': 'С чего начать'
+  },
+  hostel: {
+    name: 'Гостиница',
+    about: 'О Компании',
+    features: 'Наши услуги',
+    testimonials: 'Отзывы',
+    prices: 'Цены',
+    start: 'С чего начать'
+  },
+  competitions: {
+    name: 'Соревнования',
+    about: 'О Компании',
+    features: 'Наши услуги',
+    testimonials: 'Отзывы',
+    prices: 'Цены',
+    start: 'С чего начать'
+  },
+  practicing: {
+    name: 'Тренировки',
+    about: 'О Компании',
+    features: 'Наши услуги',
+    testimonials: 'Отзывы',
+    prices: 'Цены',
+    start: 'С чего начать'
+  },
+}
