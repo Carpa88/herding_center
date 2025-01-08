@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const block_parent = 'box-border p-2'
 
-const TestimonialDlock = ({item, mainBlock=false}: {item: ITestimonial; mainBlock?: boolean}) => (
+const TestimonialBlock = ({item, mainBlock=false}: {item: ITestimonial; mainBlock?: boolean}) => (
   <div className='bg-white p-3 my-4 border-2 rounded-lg shadow-lg font-serif text-pretty tracking-tight text-slate-600' id='testimonials' >
     <p className={mainBlock ? 'font-semibold sm:text-sm md:text-lg p-6' : 'text-sm md:text-md'} >{`"${item.testimonial}"`}</p>
     <div className={`flex items-center py-4 ${mainBlock && 'w-full border-t-2'}`}>
@@ -30,32 +30,32 @@ const Testimonials = () => {
         <div className='lg:flex flex-row flex-nowrap justify-center hidden md:hidden'>
           <div className={`w-[25%] ${block_parent}`}>
             {testimonials.slice(1, 4).map(item => 
-            <TestimonialDlock item={item} key={item.userName} />)}
+            <TestimonialBlock item={item} key={item.userName} />)}
           </div>
           <div className={`w-[50%] flex-grow-1 ${block_parent}`}>
-            <TestimonialDlock item={testimonials[1]} mainBlock />
+            <TestimonialBlock item={testimonials[1]} mainBlock />
             <div className='flex flex-row'>
               <div className={`w-[50%] ${block_parent}`}>
                 {testimonials.slice(5, 7).map(item => 
-                <TestimonialDlock item={item} key={item.userName} />)}
+                <TestimonialBlock item={item} key={item.userName} />)}
               </div>
               <div className={` w-[50%] ${block_parent}`}>
                 {testimonials.slice(7, 9).map(item => 
-                <TestimonialDlock item={item} key={item.userName} />)}
+                <TestimonialBlock item={item} key={item.userName} />)}
               </div>
             </div>
           </div>
           <div className={` w-[25%] ${block_parent}`}>
             {testimonials.slice(-3).map(item => 
-            <TestimonialDlock item={item} key={item.userName} />)}
+            <TestimonialBlock item={item} key={item.userName} />)}
           </div>
         </div>
       </div>
       <div className="mx-auto max-w-full px-4 max-md:max-w-2xl max-md:px-6 lg:hidden">
-        <TestimonialDlock item={testimonials[1]} mainBlock />
+        <TestimonialBlock item={testimonials[1]} mainBlock />
         <div className='md:columns-2 sm:columns-1'>
         {testimonials.slice(1, 6).map(item => 
-          <TestimonialDlock item={item} key={item.userName} />)}
+          <TestimonialBlock item={item} key={item.userName} />)}
         </div>
       </div>
     </div>
