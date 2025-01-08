@@ -5,7 +5,7 @@ import Image from 'next/image';
 const block_parent = 'box-border p-2'
 
 const TestimonialDlock = ({item, mainBlock=false}: {item: ITestimonial; mainBlock?: boolean}) => (
-  <div className='bg-white p-3 my-4 border-2 rounded-lg shadow-lg font-serif text-pretty tracking-tight text-slate-600' >
+  <div className='bg-white p-3 my-4 border-2 rounded-lg shadow-lg font-serif text-pretty tracking-tight text-slate-600' id='testimonials' >
     <p className={mainBlock ? 'font-semibold sm:text-sm md:text-lg p-6' : 'text-sm md:text-md'} >{`"${item.testimonial}"`}</p>
     <div className={`flex items-center py-4 ${mainBlock && 'w-full border-t-2'}`}>
       <Image alt="" src={item.icon || '/ava.png'} className="size-10 rounded-full" width={300} height={300}/>
@@ -19,7 +19,7 @@ const TestimonialDlock = ({item, mainBlock=false}: {item: ITestimonial; mainBloc
 
 const Testimonials = () => {
   return (
-    <div className="py-24 sm:py-16">
+    <div className="py-24 sm:py-16" id='testimonials'>
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center pb-11">
           <h2 className="text-base/5 font-semibold text-amber-600">Отзывы</h2>
