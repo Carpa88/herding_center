@@ -186,18 +186,19 @@ export const footer = {
     '/#features': 'Наши услуги',
     '/#testimonials': 'Отзывы',
     '/#prices': 'Цены',
-    '/#start': 'С чего начать'
+    '/#start': 'С чего начать',
+    '/#contacts': 'Контакты'
   },
-  hostel: {
-    name: 'Гостиница',
+  competitions: {
+    name: 'Соревнования',
     about: 'О Компании',
     features: 'Наши услуги',
     testimonials: 'Отзывы',
     prices: 'Цены',
     start: 'С чего начать'
   },
-  competitions: {
-    name: 'Соревнования',
+  hostel: {
+    name: 'Гостиница',
     about: 'О Компании',
     features: 'Наши услуги',
     testimonials: 'Отзывы',
