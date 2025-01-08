@@ -1,3 +1,4 @@
+import Footer from './main-sections/Footer';
 import Title from './Title'
 
 const PageCover = ({children, title}: {children: React.ReactNode; title: string}) => {
@@ -11,6 +12,7 @@ const PageCover = ({children, title}: {children: React.ReactNode; title: string}
           </div>
         </div>
       </main>
+      <Footer />
       </>
   )
 }
