@@ -3,7 +3,7 @@
 import {
   Disclosure,
 } from '@headlessui/react';
-import Logo from '@app/ui/Logo';
+import Logo from '@app/_ui/Logo';
 import { usePathname } from 'next/navigation';
 import FullScreenNav from './FullScreenNav';
 import ProfileNavFullScreen from './ProfileNavFullScreen';
