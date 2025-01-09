@@ -19,7 +19,7 @@ const PricingSection = () => {
           <div
             key={tier.id}
             className={clsx(
-              tier.featured ? 'relative bg-slate-900 shadow-2xl' : 'bg-white/60 sm:mx-8 lg:mx-0',
+              tier.featured ? 'relative bg-amber-900 shadow-2xl' : 'bg-white/60 sm:mx-8 lg:mx-0',
               tier.featured
                 ? ''
                 : tierIdx === 0

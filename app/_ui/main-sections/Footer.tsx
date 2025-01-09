@@ -15,7 +15,7 @@ const FooterBlock = ({data} : {data: Record<string, string>}) => (
 
 const Footer = () => {
   return (
-    <div className='bg-slate-800 ' id='contacts'>
+    <div className='bg-amber-800 ' id='contacts'>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className='grid gap-20 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 md:py-16 md:px-8 p-6 text-white overflow-hidden'>
           <div className='md:col-span-4 lg:col-span-2'>
@@ -33,8 +33,7 @@ const Footer = () => {
           <FooterBlock data={footer.hostel} />
           <FooterBlock data={footer.competitions} />
           <FooterBlock data={footer.practicing} />           
-          
-          <div className='md:col-span-4 lg:col-span-6 border-t-[1px] h-20 border-slate-300 flex items-center'>
+          <div className='md:col-span-4 lg:col-span-6 border-t-[1px] py-4 border-slate-300'>
             <p>Copyright, 2025</p>
           </div>
         </div>
