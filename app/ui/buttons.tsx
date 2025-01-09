@@ -10,7 +10,7 @@ export const CreateButton = ({
 }) => (
   <Link
     href={href}
-    className="flex h-10 items-center rounded-lg bg-slate-600 px-4 text-sm font-medium text-white transition-colors hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+    className="flex h-10 items-center rounded-lg bg-amber-600 px-4 text-sm font-medium text-white transition-colors hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
   >
     <span className="hidden md:block">{name}</span>{' '}
     <PlusIcon className="h-5 md:ml-4" />
@@ -24,7 +24,7 @@ export const UpdateButtonIcon = ({
   href: string;
   name?: string;
 }) => (
-  <Link href={href} className="rounded-md border p-2 hover:bg-slate-100">
+  <Link href={href} className="rounded-md border p-2 hover:bg-amber-100">
     {name && <span className="hidden md:block">{name} </span>}
     <PencilIcon className="w-5" />
   </Link>
@@ -38,7 +38,7 @@ export const DeleteButton = ({
   return (
     <button
       onClick={onClick}
-      className="rounded-md border p-2 hover:bg-slate-100"
+      className="rounded-md border p-2 hover:bg-amber-100"
     >
       <span className="sr-only">Delete</span>
       <TrashIcon className="w-5" />
