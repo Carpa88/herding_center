@@ -3,7 +3,7 @@
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { IFormState } from '@app/lib/types';
+import { IFormState } from '@app/_lib/types';
 import { CreateTrial, PartialTrial } from '../types';
 
 export const createTrial = async (

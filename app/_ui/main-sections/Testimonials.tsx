@@ -1,5 +1,5 @@
-import { testimonials } from '@app/lib/main_const';
-import { ITestimonial } from '@app/lib/main_types';
+import { testimonials } from '@app/_lib/main_const';
+import { ITestimonial } from '@app/_lib/main_types';
 import Image from 'next/image';
 
 const block_parent = 'box-border p-2'

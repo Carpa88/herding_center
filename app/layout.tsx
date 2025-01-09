@@ -1,5 +1,5 @@
 import '@app/globals.css';
-import Nav from './ui/navigation/Nav';
+import Nav from './_ui/navigation/Nav';
 
 const RootLayout = ({
   children,

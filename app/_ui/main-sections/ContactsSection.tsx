@@ -1,4 +1,4 @@
-import { socials } from '@app/lib/main_const';
+import { socials } from '@app/_lib/main_const';
 import { FaPhoneAlt } from '@node_modules/react-icons/fa';
 
 const ContactsSection = () => {

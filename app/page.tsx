@@ -1,11 +1,11 @@
-import AboutUs from "./ui/main-sections/AboutUs";
-import ContactsSection from "./ui/main-sections/ContactsSection";
-import Features from "./ui/main-sections/Features";
-import HeroSection from "./ui/main-sections/HeroSection";
-import PricingSection from "./ui/main-sections/PricingSection";
-import Testimonials from "./ui/main-sections/Testimonials";
-import VisualsSection from "./ui/main-sections/VisualsSection";
-import PageCover from "./ui/PageCover";
+import AboutUs from "./_ui/main-sections/AboutUs";
+import ContactsSection from "./_ui/main-sections/ContactsSection";
+import Features from "./_ui/main-sections/Features";
+import HeroSection from "./_ui/main-sections/HeroSection";
+import PricingSection from "./_ui/main-sections/PricingSection";
+import Testimonials from "./_ui/main-sections/Testimonials";
+import VisualsSection from "./_ui/main-sections/VisualsSection";
+import PageCover from "./_ui/PageCover";
 
 
 const Page = () => {

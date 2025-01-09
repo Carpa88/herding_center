@@ -1,4 +1,4 @@
-import { user, userNavigation } from '@app/lib/consts';
+import { user, userNavigation } from '@app/_lib/consts';
 import {
   Menu,
   MenuButton,

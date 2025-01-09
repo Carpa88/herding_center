@@ -1,4 +1,4 @@
-import { navigation } from "@app/lib/consts"
+import { navigation } from "@app/_lib/consts"
 import clsx from "clsx"
 import Link from "next/link"
 

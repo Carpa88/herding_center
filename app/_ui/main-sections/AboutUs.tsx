@@ -1,4 +1,4 @@
-import { links, stats } from '@app/lib/main_const';
+import { links, stats } from '@app/_lib/main_const';
 import Link from 'next/link';
 import Image from 'next/image';
 

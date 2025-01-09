@@ -6,7 +6,7 @@ import {
   BellIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
-import { navigation, user, userNavigation } from '@app/lib/consts';
+import { navigation, user, userNavigation } from '@app/_lib/consts';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';

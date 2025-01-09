@@ -1,4 +1,4 @@
-import { initialState } from '@app/lib/consts';
+import { initialState } from '@app/_lib/consts';
 import { ITrialError } from './types';
 
 export const ITEMS_PER_PAGE = 10;

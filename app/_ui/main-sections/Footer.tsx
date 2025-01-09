@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Logo from '../Logo';
-import { footer, socials } from '@app/lib/main_const';
+import { footer, socials } from '@app/_lib/main_const';
 
 const FooterBlock = ({data} : {data: Record<string, string>}) => (
   <div>

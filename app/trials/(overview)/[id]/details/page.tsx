@@ -1,6 +1,6 @@
 "use client"
 
-import PageCover from '@app/ui/PageCover'
+import PageCover from '@app/_ui/PageCover'
 import { useParams } from 'next/navigation';
 
 const trial  = {
@@ -13,6 +13,7 @@ const trial  = {
 
 const Page = () => {
   const { id } = useParams();
+
   console.log(id);
   const title = 'Название соревнования'
   return (

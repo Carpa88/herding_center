@@ -67,3 +67,13 @@ export const deleteTrial = async (id: string) => {
     return { message: 'Ошибка доступа к базе данных.', success: false };
   }
 };
+
+export const fetchTrial = async(id:string) => {
+  try{
+    const result = await sql`SELECT * FROM trials WHERE id = ${id}`;
+    return result.rows;
+  }catch (error) {
+    console.error('offset:', error);
+    throw new Error('Ошибка соединения с базой данных');
+  }
+}

@@ -1,4 +1,4 @@
-import { features } from "@app/lib/main_const";
+import { features } from "@app/_lib/main_const";
 
 const Features = () => (
     <div className="py-24 sm:py-16" id='features'>

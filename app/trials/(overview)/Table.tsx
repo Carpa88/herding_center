@@ -1,5 +1,5 @@
 'use client'
-import { DeleteButton, UpdateButtonIcon } from '@app/ui/buttons';
+import { DeleteButton, UpdateButtonIcon } from '@app/_ui/buttons';
 import { ITrial } from '../types';
 import { colTrials } from '../consts';
 import { deleteTrial } from './actions';

@@ -1,5 +1,5 @@
-import Input from '@app/ui/form/Input'
-import Section from '@app/ui/form/Section'
+import Input from '@app/_ui/form/Input'
+import Section from '@app/_ui/form/Section'
 import { ITrial, PartialTrial } from './types'
 
 const TrialForm = ({errors, data, title, description}:{errors: PartialTrial; data?: ITrial; title?: string; description?: string}) => {

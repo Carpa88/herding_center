@@ -1,4 +1,4 @@
-import { tiers } from '@app/lib/main_const';
+import { tiers } from '@app/_lib/main_const';
 import { CheckIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx';
 
