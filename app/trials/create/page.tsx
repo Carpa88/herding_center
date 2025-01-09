@@ -1,10 +1,10 @@
 'use client';
 
-import Form from '@app/ui/form/Form';
+import Form from '@app/_ui/form/Form';
 import { useActionState } from 'react';
 import { initCreateTrial } from '../consts';
 import { createTrial } from './actions';
-import PageCover from '@app/ui/PageCover';
+import PageCover from '@app/_ui/PageCover';
 import TrialForm from '../TrialForm';
 
 const Page = () => {
