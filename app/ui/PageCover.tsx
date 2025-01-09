@@ -1,5 +1,5 @@
 import Footer from './main-sections/Footer';
-import Title from './Title'
+import Title from './Title';
 
 const PageCover = ({children, title}: {children: React.ReactNode; title: string}) => {
   return (
