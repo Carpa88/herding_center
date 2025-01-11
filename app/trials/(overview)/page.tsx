@@ -5,7 +5,8 @@ import { TableSkeleton } from '@app/_ui/skeletons'
 import React, { Suspense } from 'react'
 import { colTrials } from '../consts'
 import Table from './Table'
-import { fetchTrialsPages, fetchFilteredTrials } from './actions'
+import { fetchTrialsPages } from './actions'
+import Pagination from '@app/_ui/Pagination'
 
 const page = async (props: {
   searchParams?: Promise<{
@@ -17,7 +18,6 @@ const page = async (props: {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchTrialsPages(query);
-  const data = await fetchFilteredTrials(query, totalPages || 1);
   
   return (
     <PageCover title='Список соревнований'>
@@ -27,11 +27,11 @@ const page = async (props: {
           <CreateButton href="/trials/create" name="Создать соревнование" />
         </div>
         <Suspense key={query + currentPage} fallback={<TableSkeleton cols={colTrials} />}>
-        <Table data={data} />
-      </Suspense>
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
+          <Table query={query} currentPage={currentPage}/>
+        </Suspense>
+        <div className="mt-5 flex w-full justify-center">
+          <Pagination totalPages={totalPages} />
+        </div>
       </div>
     </PageCover>
   )

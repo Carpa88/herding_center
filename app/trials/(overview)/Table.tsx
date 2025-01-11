@@ -1,20 +1,47 @@
 'use client'
 import { DeleteButton, UpdateButtonIcon } from '@app/_ui/buttons';
-import { ITrial } from '../types';
 import { colTrials } from '../consts';
-import { deleteTrial } from './actions';
-import { useState } from 'react';
+import { deleteTrial, fetchFilteredTrials } from './actions';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ITrial } from '@app/trials/types';
 
-const Table = ({ data }: { data: ITrial[] }) => {
-  const [currentData, setCurrentData] = useState(data);
+const Table = ({ 
+  query,
+  currentPage,
+}: {
+  query: string;
+  currentPage: number;
+})  => {
+  const [currentData, setCurrentData] = useState<ITrial[] | null>(null);
   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetchFilteredTrials(query, currentPage);
+        if (!result || result.length === 0) {
+          alert('Данные не найдены');
+          setCurrentData(null); // Set state to null if no data
+        } else {
+          setCurrentData(result); // Update state with fetched data
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setCurrentData(null); // Handle errors by setting state to null
+      }
+    };
+
+    fetchData(); // Call the async function inside useEffect
+  }, [query, currentPage]); // Re-fetch data when query or currentPage changes
+  
+    console.log(currentData);
+
   const handleClick = async(id: string): Promise<void> => {
     const result = await deleteTrial(id);
     if (!result.success) {
       alert(result.message);
     } else {
-      setCurrentData(currentData?.filter(item => item.id !== id))
+      setCurrentData((currentData || []).filter(item => item.id !== id))
       console.log(result.message);
     }
   }
