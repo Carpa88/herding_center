@@ -1,4 +1,5 @@
 'use client'
+
 import { DeleteButton, UpdateButtonIcon } from '@app/_ui/buttons';
 import { colTrials } from '../consts';
 import { deleteTrial, fetchFilteredTrials } from './actions';
@@ -20,26 +21,24 @@ const Table = ({
       try {
         const result = await fetchFilteredTrials(query, currentPage);
         if (!result || result.length === 0) {
-          alert('Данные не найдены');
-          setCurrentData(null); // Set state to null if no data
+          console.log('Данные не найдены');
+          setCurrentData(null); 
         } else {
-          setCurrentData(result); // Update state with fetched data
+          setCurrentData(result);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        setCurrentData(null); // Handle errors by setting state to null
+        setCurrentData(null);
       }
     };
 
-    fetchData(); // Call the async function inside useEffect
-  }, [query, currentPage]); // Re-fetch data when query or currentPage changes
-  
-    console.log(currentData);
+    fetchData();
+  }, [query, currentPage]);
 
   const handleClick = async(id: string): Promise<void> => {
     const result = await deleteTrial(id);
     if (!result.success) {
-      alert(result.message);
+      console.log(result.message);
     } else {
       setCurrentData((currentData || []).filter(item => item.id !== id))
       console.log(result.message);
@@ -113,11 +112,11 @@ const Table = ({
                   {Object.entries(item).map(([key, value]) => {
                     if (key !== 'id') {
                       return key === 'name' ? (
-                        <Link href={`/trials/${item.id}/details`} key={key}>
-                          <td className="whitespace-nowrap py-3 pr-3">
+                        <td className="whitespace-nowrap py-3 pr-3">
+                          <Link href={`/trials/${item.id}/details`} key={key}>
                             {value}
-                          </td>
-                        </Link>
+                          </Link>
+                        </td>
                       ) : (
                         <td className="whitespace-nowrap py-3 pr-3" key={key}>
                           {value}
