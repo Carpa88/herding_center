@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <div className='bg-amber-800 ' id='footer'>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className='grid gap-20 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 md:pt-16 md:px-8 p-6 text-white overflow-hidden'>
+        <div className='grid gap-20 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 md:pt-8 md:px-8 p-6 text-white overflow-hidden'>
           <div className='md:col-span-4 lg:col-span-2'>
             <Logo />
             <p className='py-2 md:py-6'>Ваша собака отдыхает, пока вы заняты.</p>

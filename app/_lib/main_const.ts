@@ -191,7 +191,7 @@ export const footer = {
   },
   competitions: {
     name: 'Соревнования',
-    about: 'О Компании',
+    '/trials': 'Все наши соревнования',
     features: 'Наши услуги',
     testimonials: 'Отзывы',
     prices: 'Цены',
