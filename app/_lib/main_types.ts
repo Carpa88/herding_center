@@ -9,6 +9,7 @@ export interface ITestimonial
   }
 
   export interface ISscial {
+    id: string;
     name: string;
     value: string;
     icon: IconType; 

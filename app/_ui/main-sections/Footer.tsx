@@ -23,7 +23,7 @@ const Footer = () => {
             <p className='py-2 md:py-6'>Ваша собака отдыхает, пока вы заняты.</p>
             <div>
               <ul className='flex flex-row'>{socials.map(item => 
-                <li className='mr-4 text-3xl' key={item.name}>
+                <li className='mr-4 text-3xl' key={item.id}>
                   {<item.icon />}
                 </li>)}
               </ul>

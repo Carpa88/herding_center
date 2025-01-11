@@ -153,26 +153,31 @@ export const tiers = [
 
 export const socials: ISscial[] = [
   {
+    id: 'Instagram',
     name: 'Herding Club Belarus',
     value: '@herdingBY',
     icon: FaInstagram,
   },
   {
+    id: 'Facebook',
     name: 'Herding Club Belarus',
     value: '@herdingBY',
     icon: FaFacebookF,
   },
   {
+    id: 'VK',
     name: 'Пастухи Беларуси',
     value: '@herdingBY',
     icon: FaVk,
   },
   {
+    id: 'Telegram',
     name: 'Пастухи Беларуси',
     value: '@herdingBY',
     icon: FaTelegramPlane,
   },
   {
+    id: 'WhatsApp',
     name: 'Катусова Катерина',
     value: '+375 29 123-34-456',
     icon: FaWhatsapp,
@@ -192,25 +197,25 @@ export const footer = {
   competitions: {
     name: 'Соревнования',
     '/trials': 'Все наши соревнования',
-    features: 'Наши услуги',
-    testimonials: 'Отзывы',
-    prices: 'Цены',
-    start: 'С чего начать'
+    'ыловар': 'Наши услуги',
+    'sdkjbnvd': 'Отзывы',
+    'un879': 'Цены',
+    'weofjcn lj98': 'С чего начать'
   },
   hostel: {
     name: 'Гостиница',
-    about: 'О Компании',
-    features: 'Наши услуги',
-    testimonials: 'Отзывы',
-    prices: 'Цены',
-    start: 'С чего начать'
+    'kasjcbewioijk': 'О Компании',
+    'as,ejbce67': 'Наши услуги',
+    'asweuihbjsdf': 'Отзывы',
+    'opqwdfibh': 'Цены',
+    'Ouljn joduswefbg': 'С чего начать'
   },
   practicing: {
     name: 'Тренировки',
-    about: 'О Компании',
-    features: 'Наши услуги',
-    testimonials: 'Отзывы',
-    prices: 'Цены',
-    start: 'С чего начать'
+    'sdefuhdso8v hn': 'О Компании',
+    'scjnusodhiubg': 'Наши услуги',
+    'cnojuihioo': 'Отзывы',
+    'cjlosdcou': 'Цены',
+    'dszcnoudu': 'С чего начать'
   },
 }
