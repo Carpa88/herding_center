@@ -7,6 +7,7 @@ export interface ITrial {
   ends_on: string;
   judge_id: string;
   description?: string;
+  created_at?: unknown;
 }
 
 export interface ITrialError {
@@ -16,6 +17,7 @@ export interface ITrialError {
   ends_on: string[];
   judge_id: string[];
   description?: string[];
+  created_at?: string[];
 }
 
 export type PartialTrial = Partial<ITrialError>;

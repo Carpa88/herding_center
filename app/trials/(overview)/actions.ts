@@ -20,7 +20,7 @@ export const fetchTrialsPages = async (query: string) => {
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Ошибка взаимодействия с базой данных');
+    throw new Error('Ошибка взаимодействия с базой данных4');
   }
 };
 
@@ -29,7 +29,6 @@ export const fetchFilteredTrials = async (
   currentPage: number
 ) => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
   try {
     const trials = await sql<ITrial>`
       SELECT
@@ -38,7 +37,8 @@ export const fetchFilteredTrials = async (
         trials.start_at,
         trials.ends_on,
         trials.judge_id,
-        trials.description
+        trials.description,
+        trials.created_at
       FROM trials
       WHERE
         trials.name ILIKE ${`%${query}%`} OR
@@ -46,7 +46,7 @@ export const fetchFilteredTrials = async (
         trials.ends_on ILIKE ${`%${query}%`} OR
         trials.judge_id ILIKE ${`%${query}%`} OR
         trials.description ILIKE ${`%${query}%`}
-      ORDER BY trials.name DESC
+      ORDER BY trials.created_at ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
