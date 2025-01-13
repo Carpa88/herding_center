@@ -110,10 +110,10 @@ const Table = ({
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   {Object.entries(item).map(([key, value]) => {
-                    if (key !== 'id' && key !== 'created_at') {
+                    if (key !== 'id' && key !== 'created_at' && key !== 'description') {
                       return key === 'name' ? (
-                        <td className="whitespace-nowrap py-3 pr-3" key={key}>
-                          <Link href={`/trials/${item.id}/details`} key={key}>
+                        <td className="whitespace-nowrap py-3 pr-3 hover:text-amber-600" key={key}>
+                          <Link href={`/trials/${item.id}/details`} key={key} className='hover:underline underline-offset-2 decoration-current'>
                             {value}
                           </Link>
                         </td>

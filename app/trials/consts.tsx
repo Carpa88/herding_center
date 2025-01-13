@@ -8,7 +8,6 @@ export const colTrials = [
             'Дата начала',
             'Дата окончания',
             'Судьи',
-            'Описание',
           ]
 
 export const createTrialErrors: ITrialError = {
