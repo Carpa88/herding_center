@@ -2,6 +2,7 @@
 
 import PageCover from '@app/_ui/PageCover'
 import { fetchTrial } from '../../actions'
+import { format } from 'date-fns'
 
 const Item = ({name, value}: {name: string; value: string}) => (
   <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -16,6 +17,7 @@ const Page = async({ params,
 }) => {
   const trialID = (await params).id;
   const trial = await fetchTrial(trialID);
+  const dateCreated = format(new Date(trial[0].created_at), 'yyyy-MM-dd ');
 
   return (
     <PageCover title={trial[0].name}>
@@ -25,6 +27,7 @@ const Page = async({ params,
           <dl className="divide-y divide-slate-100">
             <Item name='Время проведения соревнований:' value={`${trial[0].start_at} - ${trial[0].ends_on}`} />
             <Item name='Судья:' value={trial[0].judge_id} />
+            <Item name='Дата создания записи:' value={dateCreated} />
           </dl>
         </div>
       </div>
