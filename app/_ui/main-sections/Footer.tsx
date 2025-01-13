@@ -7,7 +7,7 @@ const FooterBlock = ({data} : {data: Record<string, string>}) => (
     <p className='py-3 font-semibold tracking-tight text-lg'>{data.name}</p>
     <ul>
       {Object.entries(footer.company).slice(1).map(([key, value]) => (
-        <li className='py-1' key={key}><Link href={key}>{value}</Link></li>
+        <li className='py-1' key={key}><Link href={key} className='hover:underline underline-offset-2 decoration-current'>{value}</Link></li>
       ))}
     </ul>
   </div>
