@@ -4,25 +4,29 @@ import { sql } from '@vercel/postgres';
 import { ITEMS_PER_PAGE } from '../consts';
 import { ITrial } from '../types';
 
-export const fetchTrialsPages = async (query: string) => {
+export const fetchTrialsPages = async() => {
   try {
-    const count = await sql`SELECT COUNT(*)
-    FROM trials
-    WHERE
-      trials.name ILIKE ${`%${query}%`} OR
-      trials.start_at ILIKE ${`%${query}%`} OR
-      trials.ends_on ILIKE ${`%${query}%`} OR
-      trials.judge_id ILIKE ${`%${query}%`} OR
-      trials.description ILIKE ${`%${query}%`}
-  `;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/trials/totalPages`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+  })
 
-    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+  if (!response.ok) {
+    const { message, errors } = await response.json();
+    return {
+      errors: errors || {},
+      message,
+      };
+    }
+    const data = await response.json();
+    const totalPages = Number(data.totalPages);
+    
     return totalPages;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Ошибка взаимодействия с базой данных4');
+    console.error('Fetch error:', error);
+    return { errors: {}, message: 'Ошибка отправки данных' };
   }
-};
+}
 
 export const fetchFilteredTrials = async (
   query: string,
