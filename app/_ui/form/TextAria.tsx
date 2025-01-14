@@ -3,20 +3,18 @@ import React from 'react'
 const TextAria = ({
   name,
   label,
-  type,
-  col,
+  col = 1,
   errors,
-  defaultValue
 }: {
   name: string;
   label?: string;
   type?: 'text' | 'number' | 'email';
-  col?: 2;
+  col?: 1 | 2;
   errors?: (string | number | boolean)[];
   defaultValue?: string | number | readonly string[];
 }) => {
   return (
-    <div className={`md:col-span-${col ?? 1}`}>
+    <div className={`md:col-span-${col}`}>
       <label htmlFor={name} className="block text-sm/6 font-semibold text-slate-900">
         {label}
       </label>
