@@ -4,6 +4,7 @@ import { IFormState } from '@app/_lib/types';
 import { PartialTrial } from '../types';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { API_BASE_URL } from '@app/_lib/consts';
 
 export const createTrial = async (
   state: IFormState<PartialTrial>,
@@ -18,7 +19,7 @@ export const createTrial = async (
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/trials/create`, {
+    const response = await fetch(`${API_BASE_URL}/trials/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
