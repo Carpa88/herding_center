@@ -29,6 +29,7 @@ const FormSchema = z.object({
   ends_on: z.string().min(3, { message: 'End date must be at least 3 characters long.' }),
   judge_id: z.string().min(3, { message: 'Judge ID must be at least 3 characters long.' }),
   description: z.string().nullable(),
+  created_at: z.date().nullable(),
 });
 
-export const CreateTrial = FormSchema.omit({ id: true });
+export const CreateTrial = FormSchema.omit({ id: true, created_at: true });

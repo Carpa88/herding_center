@@ -15,7 +15,7 @@ const Page = () => {
 
   return (
     <PageCover title='Новое соревнование'>
-      <Form buttonState={isPading} formAction={formAction}>
+      <Form buttonState={isPading} formAction={formAction} href='/trials'>
         <TrialForm errors={state.errors} title='Давайте проведем новое соревнование!' description='Обязательно напишите название, укажите даты проведения а также расскажите участникам почему на ваше соревнование стоит пойти'/>
         {state?.message && (
           <p className="mt-2 text-sm text-red-800">{state.message}</p>
