@@ -2,7 +2,7 @@ import { CreateTrial } from '@app/trials/types';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
-export async function POST(request: Request){
+export const POST = async (request: Request) => {
   const data = await request.json();
   const { name, start_at, ends_on, judge_id, description } = data;
 
