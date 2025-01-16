@@ -3,7 +3,9 @@ import { ITEMS_PER_PAGE } from '@app/trials/consts';
 import { NextResponse } from 'next/server';
 
 export const GET = async(request: Request) => {
-  const query = request.headers.get('query') || '';
+  const enquery = request.headers.get('query') || '';
+  const query = decodeURIComponent(enquery);
+  console.log('query in GET', query)
   try {
     const count = await sql`SELECT COUNT(*)
     FROM trials

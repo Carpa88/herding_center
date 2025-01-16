@@ -4,9 +4,11 @@ import { sql } from "@node_modules/@vercel/postgres/dist";
 import { NextResponse } from "next/server";
 
 export const GET = async(request: Request) => {
-  const query = request.headers.get('query') || '';
+  const enquery = request.headers.get('query') || '';
+  const query = decodeURIComponent(enquery);
   const currentPage = request.headers.get('page') || '1';
   const offset = (+currentPage - 1) * ITEMS_PER_PAGE;
+
   try {
     const trials = await sql<ITrial>`
       SELECT

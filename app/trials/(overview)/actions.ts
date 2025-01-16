@@ -10,7 +10,7 @@ export const fetchTrialsPages = async(query: string) => {
     const response = await fetch(`${API_BASE_URL}/trials/totalPages`, {
       method: 'GET',
       headers: { 
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'query': query,
       },
   })
@@ -34,12 +34,11 @@ export const fetchTrialsPages = async(query: string) => {
 }
 
 export const fetchFilteredTrials = async (query: string, currentPage: number) => {
-
   try {
     const response = await fetch(`${API_BASE_URL}/trials`, {
       method: 'GET',
       headers: { 
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'query': query,
         'page': currentPage.toString(),
       },
