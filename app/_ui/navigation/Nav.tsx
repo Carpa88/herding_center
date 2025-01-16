@@ -1,8 +1,6 @@
 'use client';
 
-import {
-  Disclosure,
-} from '@headlessui/react';
+import { Disclosure } from '@headlessui/react';
 import Logo from '@app/_ui/Logo';
 import { usePathname } from 'next/navigation';
 import FullScreenNav from './FullScreenNav';
@@ -24,7 +22,7 @@ const Nav = () => {
           </div>
           <div className="hidden md:block">
             <ProfileNavFullScreen isAuthorized={isAuthorized} />
-            </div>
+          </div>
           <div className="-mr-2 flex md:hidden">
             {/* Mobile version */}
             <MubileMenuButton />
