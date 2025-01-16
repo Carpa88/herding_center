@@ -34,14 +34,12 @@ export const DeleteButton = ({
   onClick,
 }: {
   onClick: () => void | Promise<void>;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="rounded-md border p-2 hover:bg-amber-100"
-    >
-      <span className="sr-only">Delete</span>
-      <TrashIcon className="w-5" />
-    </button>
-  );
-};
+}) => (
+  <button
+    onClick={onClick}
+    className="rounded-md border p-2 hover:bg-amber-100"
+  >
+    <span className="sr-only">Delete</span>
+    <TrashIcon className="w-5" />
+  </button>
+);

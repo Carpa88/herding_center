@@ -11,11 +11,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  const createPageURL = (PageNumber: number | string ) => {
+  const createPageURL = (PageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
-    params.set('page', PageNumber.toString())
+    params.set('page', PageNumber.toString());
     return `${pathname}?${params.toString()}`;
-  }
+  };
 
   const allPages = generatePagination(currentPage, totalPages);
 
@@ -53,7 +53,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         href={createPageURL(currentPage + 1)}
         isDisabled={currentPage >= totalPages}
       />
-    </div> 
+    </div>
   );
 }
 

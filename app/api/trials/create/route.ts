@@ -31,4 +31,4 @@ export const POST = async (request: Request) => {
     console.error('Database error:', error);
     return NextResponse.json({ message: 'Ошибка создания записи' });
   }
-}
+};

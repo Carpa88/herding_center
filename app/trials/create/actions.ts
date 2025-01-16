@@ -8,7 +8,7 @@ import { API_BASE_URL } from '@app/_lib/consts';
 
 export const createTrial = async (
   state: IFormState<PartialTrial>,
-  formData: FormData
+  formData: FormData,
 ) => {
   const body = {
     name: formData.get('name'),

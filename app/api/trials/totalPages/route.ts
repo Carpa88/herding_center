@@ -2,10 +2,9 @@ import { sql } from '@vercel/postgres';
 import { ITEMS_PER_PAGE } from '@app/trials/consts';
 import { NextResponse } from 'next/server';
 
-export const GET = async(request: Request) => {
+export const GET = async (request: Request) => {
   const enquery = request.headers.get('query') || '';
   const query = decodeURIComponent(enquery);
-  console.log('query in GET', query)
   try {
     const count = await sql`SELECT COUNT(*)
     FROM trials
@@ -17,9 +16,13 @@ export const GET = async(request: Request) => {
       trials.description ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    return NextResponse.json({ error: {}, message: '', data: totalPages});
+    return NextResponse.json({ error: {}, message: '', data: totalPages });
   } catch (error) {
     console.error('Database Error:', error);
-    return NextResponse.json({ error: error, message: 'Ошибка ответа сервера', data: 0 });
+    return NextResponse.json({
+      error: error,
+      message: 'Ошибка ответа сервера',
+      data: 0,
+    });
   }
 };

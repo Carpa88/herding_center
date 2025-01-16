@@ -45,7 +45,6 @@ const eslintConfig = [
       'jsx-a11y/alt-text': 'error',
       'jsx-a11y/no-autofocus': 'warn',
       'arrow-body-style': ['error', 'as-needed'],
-      'consistent-return': 'error',
       'prefer-const': 'error',
       'quotes': ['error', 'single'],
       'semi': ['error', 'always'],
