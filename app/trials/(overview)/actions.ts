@@ -1,14 +1,18 @@
 'use server'
 
 import { sql } from '@vercel/postgres';
-import { ITEMS_PER_PAGE } from '../consts';
 import { ITrial } from '../types';
+import { API_BASE_URL } from '@app/_lib/consts';
+import { IResponseData } from '@app/_lib/types';
 
-export const fetchTrialsPages = async() => {
+export const fetchTrialsPages = async(query: string) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/trials/totalPages`, {
+    const response = await fetch(`${API_BASE_URL}/trials/totalPages`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'query': query,
+      },
   })
 
   if (!response.ok) {
@@ -16,51 +20,47 @@ export const fetchTrialsPages = async() => {
     return {
       errors: errors || {},
       message,
+      data: 0
       };
     }
-    const data = await response.json();
-    const totalPages = Number(data.totalPages);
+    const request: IResponseData<number> = await response.json();
+    const totalPages = Number(request.data);
     
-    return totalPages;
+    return { errors: {}, message: '', data: totalPages };
   } catch (error) {
     console.error('Fetch error:', error);
-    return { errors: {}, message: 'Ошибка отправки данных' };
+    return { errors: error, message: 'Ошибка запроса к серверу', data: 0 };
   }
 }
 
-export const fetchFilteredTrials = async (
-  query: string,
-  currentPage: number
-) => {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-  try {
-    const trials = await sql<ITrial>`
-      SELECT
-        trials.id,
-        trials.name,
-        trials.start_at,
-        trials.ends_on,
-        trials.judge_id,
-        trials.description,
-        trials.created_at
-      FROM trials
-      WHERE
-        trials.name ILIKE ${`%${query}%`} OR
-        trials.start_at ILIKE ${`%${query}%`} OR
-        trials.ends_on ILIKE ${`%${query}%`} OR
-        trials.judge_id ILIKE ${`%${query}%`} OR
-        trials.description ILIKE ${`%${query}%`}
-      ORDER BY trials.created_at ASC
-      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-    `;
+export const fetchFilteredTrials = async (query: string, currentPage: number) => {
 
-    return trials.rows;
+  try {
+    const response = await fetch(`${API_BASE_URL}/trials`, {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'query': query,
+        'page': currentPage.toString(),
+      },
+    });
+    
+    if (!response.ok) {
+      const { message, errors } = await response.json();
+      return {
+        errors: errors,
+        message,
+        data: null
+      };
+    }
+
+    const request: IResponseData<ITrial[] | null> = await response.json();    
+    return { errors: {}, message: '', data: request.data };
   } catch (error) {
-    console.error('Database Error:', error);
-    console.error('offset:', offset);
-    throw new Error('Ошибка соединения с базой данных');
+    console.error('Fetch error:', error);
+    return { errors: error, message: 'Ошибка запроса к серверу', data: null };
   }
-};
+}
 
 export const deleteTrial = async (id: string) => {
   try {

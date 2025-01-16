@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ITrial } from '@app/trials/types';
 
+const SorryText = () => (<h3>Нет данных, соответствующих Вашему запросу</h3>);
+
 const Table = ({ 
   query,
   currentPage,
@@ -20,11 +22,11 @@ const Table = ({
     const fetchData = async () => {
       try {
         const result = await fetchFilteredTrials(query, currentPage);
-        if (!result || result.length === 0) {
+        if (!result.data)  {
           console.log('Данные не найдены');
           setCurrentData(null); 
         } else {
-          setCurrentData(result);
+          setCurrentData(result.data);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -49,7 +51,7 @@ const Table = ({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-slate-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {currentData?.map((item) => (
+            {!!currentData ? currentData.map((item) => (
               <div
                 key={item.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
@@ -81,7 +83,9 @@ const Table = ({
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <SorryText />
+            )}
           </div>
           <table className="hidden min-w-full text-slate-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
@@ -104,7 +108,7 @@ const Table = ({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {currentData?.map((item) => (
+              {!!currentData ? currentData.map((item) => (
                 <tr
                   key={item.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
@@ -130,7 +134,9 @@ const Table = ({
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):(
+                <SorryText />
+              )}
             </tbody>
           </table>
         </div>

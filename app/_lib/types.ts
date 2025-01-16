@@ -12,3 +12,9 @@ export interface IData {
   id: string;
   [key: string]: unknown;
 }
+
+export interface IResponseData<T> {
+  errors: Record<string, string>;
+  message: string;
+  data: T;
+}
