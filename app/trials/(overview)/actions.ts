@@ -11,7 +11,7 @@ export const fetchTrialsPages = async (query: string) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        query: query,
+        query,
       },
     });
 
@@ -42,7 +42,7 @@ export const fetchFilteredTrials = async (
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        query: query,
+        query,
         page: currentPage.toString(),
       },
     });
@@ -50,7 +50,7 @@ export const fetchFilteredTrials = async (
     if (!response.ok) {
       const { message, errors } = await response.json();
       return {
-        errors: errors,
+        errors,
         message,
         data: null,
       };

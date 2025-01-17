@@ -20,7 +20,7 @@ export const GET = async (request: Request) => {
   } catch (error) {
     console.error('Database Error:', error);
     return NextResponse.json({
-      error: error,
+      error,
       message: 'Ошибка ответа сервера',
       data: 0,
     });
