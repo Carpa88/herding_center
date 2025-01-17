@@ -4,8 +4,11 @@ import { sql } from '@vercel/postgres';
 import { ITrial } from '../types';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { IResponseData } from '@app/_lib/types';
+import { ERROR_MES_REQUEST } from '../consts';
 
-export const fetchTrialsPages = async (query: string) => {
+export const fetchTrialsPages = async (
+  query: string,
+): Promise<IResponseData<number>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/trials/totalPages`, {
       method: 'GET',
@@ -16,27 +19,27 @@ export const fetchTrialsPages = async (query: string) => {
     });
 
     if (!response.ok) {
-      const { message, errors } = await response.json();
+      const { message, error } = await response.json();
       return {
-        errors: errors || {},
+        error,
         message,
-        data: 0,
+        data: null,
       };
     }
     const request: IResponseData<number> = await response.json();
     const totalPages = Number(request.data);
 
-    return { errors: {}, message: '', data: totalPages };
+    return { error: {}, message: '', data: totalPages };
   } catch (error) {
     console.error('Fetch error:', error);
-    return { errors: error, message: 'Ошибка запроса к серверу', data: 0 };
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
   }
 };
 
 export const fetchFilteredTrials = async (
   query: string,
   currentPage: number,
-) => {
+): Promise<IResponseData<ITrial[]>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/trials`, {
       method: 'GET',
@@ -48,19 +51,19 @@ export const fetchFilteredTrials = async (
     });
 
     if (!response.ok) {
-      const { message, errors } = await response.json();
+      const { message, error } = await response.json();
       return {
-        errors,
+        error,
         message,
         data: null,
       };
     }
 
     const request: IResponseData<ITrial[] | null> = await response.json();
-    return { errors: {}, message: '', data: request.data };
+    return { error: {}, message: '', data: request.data };
   } catch (error) {
     console.error('Fetch error:', error);
-    return { errors: error, message: 'Ошибка запроса к серверу', data: null };
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
   }
 };
 

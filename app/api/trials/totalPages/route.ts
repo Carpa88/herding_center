@@ -1,8 +1,11 @@
 import { sql } from '@vercel/postgres';
-import { ITEMS_PER_PAGE } from '@app/trials/consts';
+import { ERROR_MES_RESPONSE, ITEMS_PER_PAGE } from '@app/trials/consts';
 import { NextResponse } from 'next/server';
+import { IResponseData } from '@app/_lib/types';
 
-export const GET = async (request: Request) => {
+export const GET = async (
+  request: Request,
+): Promise<NextResponse<IResponseData<number>>> => {
   const enquery = request.headers.get('query') || '';
   const query = decodeURIComponent(enquery);
   try {
@@ -20,8 +23,8 @@ export const GET = async (request: Request) => {
   } catch (error) {
     console.error('Database Error:', error);
     return NextResponse.json({
-      error,
-      message: 'Ошибка ответа сервера',
+      error: error as Error,
+      message: ERROR_MES_RESPONSE,
       data: 0,
     });
   }

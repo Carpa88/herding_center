@@ -1,15 +1,16 @@
 'use server';
 
-import { IFormState } from '@app/_lib/types';
+import { IFormState, IResponseData } from '@app/_lib/types';
 import { PartialTrial } from '../types';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { API_BASE_URL } from '@app/_lib/consts';
+import { ERROR_MES_REQUEST } from '../consts';
 
 export const createTrial = async (
   state: IFormState<PartialTrial>,
   formData: FormData,
-) => {
+): Promise<IResponseData<string>> => {
   const body = {
     name: formData.get('name'),
     start_at: formData.get('start_at'),
@@ -26,15 +27,16 @@ export const createTrial = async (
     });
 
     if (!response.ok) {
-      const { message, errors } = await response.json();
+      const { message, error } = await response.json();
       return {
-        errors: errors || {},
+        error,
         message,
+        data: null,
       };
     }
   } catch (error) {
     console.error('Fetch error:', error);
-    return { errors: {}, message: 'Ошибка отправки данных' };
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
   }
   revalidatePath('/trials');
   redirect('/trials');

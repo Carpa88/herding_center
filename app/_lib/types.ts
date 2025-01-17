@@ -14,7 +14,7 @@ export interface IData {
 }
 
 export interface IResponseData<T> {
-  errors: Record<string, string>;
+  error: Record<string, string> | Error | string;
   message: string;
-  data: T;
+  data: T | null;
 }

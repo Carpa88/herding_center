@@ -15,3 +15,6 @@ export const createTrialErrors: ITrialError = {
 };
 
 export const initCreateTrial = initialState(createTrialErrors);
+
+export const ERROR_MES_RESPONSE = 'Ошибка ответа сервера';
+export const ERROR_MES_REQUEST = 'Ошибка запроса к серверу';

@@ -1,9 +1,12 @@
-import { ITEMS_PER_PAGE } from '@app/trials/consts';
+import { IResponseData } from '@app/_lib/types';
+import { ERROR_MES_RESPONSE, ITEMS_PER_PAGE } from '@app/trials/consts';
 import { ITrial } from '@app/trials/types';
 import { sql } from '@node_modules/@vercel/postgres/dist';
 import { NextResponse } from 'next/server';
 
-export const GET = async (request: Request) => {
+export const GET = async (
+  request: Request,
+): Promise<NextResponse<IResponseData<ITrial[]>>> => {
   const enquery = request.headers.get('query') || '';
   const query = decodeURIComponent(enquery);
   const currentPage = request.headers.get('page') || '1';
@@ -35,8 +38,8 @@ export const GET = async (request: Request) => {
     console.error('Database Error:', error);
     console.error('offset:', offset);
     return NextResponse.json({
-      error,
-      message: 'Ошибка ответа сервера',
+      error: error as Error,
+      message: ERROR_MES_RESPONSE,
       data: null,
     });
   }
