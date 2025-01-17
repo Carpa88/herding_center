@@ -8,7 +8,7 @@ import { ERROR_MES_REQUEST } from '../consts';
 
 export const fetchTrialsPages = async (
   query: string,
-): Promise<IResponseData<number>> => {
+): Promise<IResponseData<number, string>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/trials/totalPages`, {
       method: 'GET',
@@ -26,10 +26,10 @@ export const fetchTrialsPages = async (
         data: null,
       };
     }
-    const request: IResponseData<number> = await response.json();
+    const request: IResponseData<number, string> = await response.json();
     const totalPages = Number(request.data);
 
-    return { error: {}, message: '', data: totalPages };
+    return { error: '', message: '', data: totalPages };
   } catch (error) {
     console.error('Fetch error:', error);
     return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
@@ -39,7 +39,7 @@ export const fetchTrialsPages = async (
 export const fetchFilteredTrials = async (
   query: string,
   currentPage: number,
-): Promise<IResponseData<ITrial[]>> => {
+): Promise<IResponseData<ITrial[], string>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/trials`, {
       method: 'GET',
@@ -59,8 +59,8 @@ export const fetchFilteredTrials = async (
       };
     }
 
-    const request: IResponseData<ITrial[] | null> = await response.json();
-    return { error: {}, message: '', data: request.data };
+    const request: IResponseData<ITrial[], string> = await response.json();
+    return { error: '', message: '', data: request.data };
   } catch (error) {
     console.error('Fetch error:', error);
     return { error: error as Error, message: ERROR_MES_REQUEST, data: null };

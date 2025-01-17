@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 
 export const GET = async (
   request: Request,
-): Promise<NextResponse<IResponseData<ITrial[]>>> => {
+): Promise<NextResponse<IResponseData<ITrial[], string>>> => {
   const enquery = request.headers.get('query') || '';
   const query = decodeURIComponent(enquery);
   const currentPage = request.headers.get('page') || '1';
@@ -33,7 +33,7 @@ export const GET = async (
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
-    return NextResponse.json({ error: {}, message: '', data: trials.rows });
+    return NextResponse.json({ error: '', message: '', data: trials.rows });
   } catch (error) {
     console.error('Database Error:', error);
     console.error('offset:', offset);

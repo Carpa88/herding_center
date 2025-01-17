@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 
 export const POST = async (
   request: Request,
-): Promise<NextResponse<IResponseData<string>>> => {
+): Promise<NextResponse<IResponseData<string, string>>> => {
   const data = await request.json();
   const { name, start_at, ends_on, judge_id, description } = data;
 
@@ -32,7 +32,7 @@ export const POST = async (
       VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description})
     `;
     return NextResponse.json({
-      error: {},
+      error: '',
       message: '',
       data: 'Запись успешно создана',
     });

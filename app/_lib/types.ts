@@ -4,7 +4,7 @@ export interface INavigation {
 }
 
 export interface IFormState<T> {
-  errors: T;
+  error: Partial<T> | Error | string;
   message: string;
 }
 
@@ -13,8 +13,8 @@ export interface IData {
   [key: string]: unknown;
 }
 
-export interface IResponseData<T> {
-  error: Record<string, string> | Error | string;
+export interface IResponseData<T, Y> {
+  error: Partial<Y> | Error | string;
   message: string;
   data: T | null;
 }

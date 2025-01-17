@@ -1,23 +1,33 @@
 'use client';
 
 import Form from '@app/_ui/form/Form';
-import { useActionState } from 'react';
-import { initCreateTrial } from '../consts';
+import { useActionState, useMemo } from 'react';
 import { createTrial } from './actions';
 import PageCover from '@app/_ui/PageCover';
 import TrialForm from '../TrialForm';
+import { PartialTrial } from '../types';
+import { initialState } from '@app/_lib/consts';
 
 const Page = () => {
   const [state, formAction, isPading] = useActionState(
     createTrial,
-    initCreateTrial,
+    initialState,
   );
-
+  const correctTypeError = useMemo(() => {
+    if (
+      state.error &&
+      typeof state.error === 'object' &&
+      'name' in state.error
+    ) {
+      return state.error as PartialTrial;
+    }
+    return undefined;
+  }, [state]);
   return (
     <PageCover title="Новое соревнование">
       <Form buttonState={isPading} formAction={formAction} href="/trials">
         <TrialForm
-          errors={state.errors}
+          errors={correctTypeError}
           title="Давайте проведем новое соревнование!"
           description="Обязательно напишите название, укажите даты проведения а также расскажите участникам почему на ваше соревнование стоит пойти"
         />

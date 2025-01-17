@@ -9,7 +9,7 @@ const TrialForm = ({
   title,
   description,
 }: {
-  errors: PartialTrial;
+  errors?: PartialTrial;
   data?: ITrial;
   title?: string;
   description?: string;

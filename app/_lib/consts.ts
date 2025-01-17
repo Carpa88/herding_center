@@ -22,7 +22,8 @@ export const userNavigation = [
   { name: 'Выйти', href: '#' },
 ];
 
-export const initialState = <T>(obj: T) => ({
-  errors: obj,
+export const initialState = {
+  error: '',
   message: '',
-});
+  data: null,
+};

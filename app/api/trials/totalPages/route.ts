@@ -5,7 +5,7 @@ import { IResponseData } from '@app/_lib/types';
 
 export const GET = async (
   request: Request,
-): Promise<NextResponse<IResponseData<number>>> => {
+): Promise<NextResponse<IResponseData<number, string>>> => {
   const enquery = request.headers.get('query') || '';
   const query = decodeURIComponent(enquery);
   try {
@@ -19,7 +19,7 @@ export const GET = async (
       trials.description ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    return NextResponse.json({ error: {}, message: '', data: totalPages });
+    return NextResponse.json({ error: '', message: '', data: totalPages });
   } catch (error) {
     console.error('Database Error:', error);
     return NextResponse.json({

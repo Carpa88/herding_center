@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { generatePagination } from '@/app/_lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function Pagination({ totalPages }: { totalPages: number }) {
+const Pagination = ({ totalPages }: { totalPages: number }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -63,9 +63,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
       />
     </div>
   );
-}
+};
 
-function PaginationNumber({
+export default Pagination;
+
+const PaginationNumber = ({
   page,
   href,
   isActive,
@@ -75,7 +77,7 @@ function PaginationNumber({
   href: string;
   position?: 'first' | 'last' | 'middle' | 'single';
   isActive: boolean;
-}) {
+}) => {
   const className = clsx(
     'flex h-10 w-10 items-center justify-center text-sm border',
     {
@@ -94,9 +96,9 @@ function PaginationNumber({
       {page}
     </Link>
   );
-}
+};
 
-function PaginationArrow({
+const PaginationArrow = ({
   href,
   direction,
   isDisabled,
@@ -104,7 +106,7 @@ function PaginationArrow({
   href: string;
   direction: 'left' | 'right';
   isDisabled?: boolean;
-}) {
+}) => {
   const className = clsx(
     'flex h-10 w-10 items-center justify-center rounded-md border',
     {
@@ -129,4 +131,4 @@ function PaginationArrow({
       {icon}
     </Link>
   );
-}
+};

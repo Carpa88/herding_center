@@ -1,16 +1,16 @@
 'use server';
 
 import { IFormState, IResponseData } from '@app/_lib/types';
-import { PartialTrial } from '../types';
+import { ITrialError } from '../types';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { ERROR_MES_REQUEST } from '../consts';
 
 export const createTrial = async (
-  state: IFormState<PartialTrial>,
+  state: IFormState<ITrialError>,
   formData: FormData,
-): Promise<IResponseData<string>> => {
+): Promise<IResponseData<string, ITrialError>> => {
   const body = {
     name: formData.get('name'),
     start_at: formData.get('start_at'),
@@ -29,7 +29,7 @@ export const createTrial = async (
     if (!response.ok) {
       const { message, error } = await response.json();
       return {
-        error,
+        error: error as Error,
         message,
         data: null,
       };
