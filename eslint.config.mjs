@@ -37,17 +37,44 @@ const eslintConfig = [
       prettier: prettierPlugin,
     },
     rules: {
-      'react/react-in-jsx-scope': 'off',
+      // React-specific rules
+      'react/react-in-jsx-scope': 'off', // Next.js не требует импортировать React
       'react/jsx-uses-react': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'prettier/prettier': 'error',
+      'react/prop-types': 'off', // Не требуется, если используется TypeScript
+      'react/jsx-no-duplicate-props': 'error',
+      'react/jsx-curly-spacing': ['error', { when: 'never', children: true }],
+      'react/self-closing-comp': ['error', { component: true, html: true }],
+
+      // Accessibility rules
       'jsx-a11y/alt-text': 'error',
       'jsx-a11y/no-autofocus': 'warn',
+      'jsx-a11y/anchor-is-valid': [
+        'error',
+        {
+          aspects: ['noHref', 'invalidHref'],
+        },
+      ],
+
+      // TypeScript rules
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-non-null-assertion': 'error',
+
+      // Prettier integration
+      'prettier/prettier': 'error',
+
+      // General JavaScript rules
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'arrow-body-style': ['error', 'as-needed'],
       'prefer-const': 'error',
       'quotes': ['error', 'single'],
       'semi': ['error', 'always'],
+      'eqeqeq': ['error', 'always'],
+      'curly': ['error', 'all'],
+      'no-var': 'error',
+      'object-shorthand': ['error', 'always'],
+      'no-unused-expressions': 'error',
     },
     settings: {
       react: {
