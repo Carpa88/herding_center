@@ -60,13 +60,7 @@ const eslintConfig = [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'error',
-      "@typescript-eslint/explicit-function-return-type": [
-        "warn",
-          {
-            "allowExpressions": true,
-            "allowTypedFunctionExpressions": true
-          }
-      ],
+      "@typescript-eslint/explicit-function-return-type": "off",
 
       // Prettier integration
       'prettier/prettier': 'error',
