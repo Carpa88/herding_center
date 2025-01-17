@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix"
+    "lint": "next lint --fix",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -33,7 +34,7 @@
     "@types/react": "^19.0.4",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
-    "@typescript-eslint/parser": "^8.19.1",
+    "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^9.18.0",
     "eslint-config-next": "15.1.2",
     "eslint-config-prettier": "^10",
