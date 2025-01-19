@@ -7,7 +7,7 @@ export interface ITrial {
   ends_on: string;
   judge_id: string;
   description?: string;
-  created_at?: unknown;
+  created_at?: Date;
 }
 
 export interface ITrialError {
