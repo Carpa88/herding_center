@@ -7,7 +7,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ITrial } from '@app/trials/types';
 
-const SorryText = () => <h3>Нет данных, соответствующих Вашему запросу</h3>;
+const SorryText = () => (
+  <p className="text-md font-medium text-slate-900">
+    Нет данных, соответствующих Вашему запросу
+  </p>
+);
 
 const Table = ({
   query,
@@ -50,7 +54,7 @@ const Table = ({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-slate-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {!!currentData ? (
+            {!!currentData?.length ? (
               currentData.map((item) => (
                 <div
                   key={item.id}
@@ -110,9 +114,9 @@ const Table = ({
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white">
-              {!!currentData ? (
-                currentData.map((item) => (
+            {!!currentData?.length ? (
+              <tbody className="bg-white">
+                {currentData.map((item) => (
                   <tr
                     key={item.id}
                     className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
@@ -150,11 +154,11 @@ const Table = ({
                       </div>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <SorryText />
-              )}
-            </tbody>
+                ))}
+              </tbody>
+            ) : (
+              <SorryText />
+            )}
           </table>
         </div>
       </div>
