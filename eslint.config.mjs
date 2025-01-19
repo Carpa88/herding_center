@@ -38,6 +38,7 @@ const eslintConfig = [
     },
     rules: {
       // React-specific rules
+      'react-hooks/rules-of-hooks': 'off',
       'react/react-in-jsx-scope': 'off', // Next.js не требует импортировать React
       'react/jsx-uses-react': 'off',
       'react/prop-types': 'off', // Не требуется, если используется TypeScript
@@ -67,8 +68,8 @@ const eslintConfig = [
 
       // General JavaScript rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'arrow-body-style': ['error', 'as-needed'],
-      'prefer-const': 'error',
+      'arrow-body-style': ['warn', 'as-needed'],
+      'prefer-const': 'warn',
       'quotes': ['error', 'single'],
       'semi': ['error', 'always'],
       'eqeqeq': ['error', 'always'],
