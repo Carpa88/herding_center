@@ -46,7 +46,7 @@ const Input = ({
           onChange={handleChange}
           disabled={disabled}
         />
-        {!!errors?.length &&
+        {Array.isArray(errors) &&
           errors.map((error) => (
             <p className="mt-2 text-sm text-red-500" key="error">
               {error}

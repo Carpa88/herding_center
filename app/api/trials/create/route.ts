@@ -1,31 +1,21 @@
 import { IResponseData } from '@app/_lib/types';
 import { ERROR_MES_RESPONSE } from '@app/trials/consts';
-import { CreateTrial } from '@app/trials/types';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
 export const POST = async (
   request: Request,
 ): Promise<NextResponse<IResponseData<string, string>>> => {
-  const data = await request.json();
-  const { name, start_at, ends_on, judge_id, description } = data;
+  const body = await request.json();
+  const { name, start_at, ends_on, judge_id, description } = body.data;
 
-  const validatedFields = CreateTrial.safeParse({
-    name,
-    start_at,
-    ends_on,
-    judge_id,
-    description,
-  });
-
-  if (!validatedFields.success) {
+  if (!body.success) {
     return NextResponse.json({
-      error: validatedFields.error.flatten().fieldErrors as string,
+      error: body.error.flatten().fieldErrors as string,
       message: 'Не все поля заполнены. Запись не создана',
       data: null,
     });
   }
-
   try {
     await sql`
       INSERT INTO trials (name, start_at, ends_on, judge_id, description)

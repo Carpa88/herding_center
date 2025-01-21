@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 const TrialForm = ({
   errors,
-  id = '',
+  id,
   title,
   description,
 }: {
@@ -21,6 +21,9 @@ const TrialForm = ({
   const [data, setData] = useState<ITrial | null>(null);
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     const fetchData = async () => {
       try {
         const trial = await fetchTrial(id);
@@ -42,6 +45,12 @@ const TrialForm = ({
         col={2}
       />
       <Input
+        name="judge_id"
+        label="Имя судьи"
+        errors={errors?.judge_id}
+        value={data?.judge_id}
+      />
+      <Input
         name="start_at"
         label="Начало в"
         errors={errors?.start_at}
@@ -53,12 +62,6 @@ const TrialForm = ({
         errors={errors?.ends_on}
         value={data?.ends_on}
       />
-      <Input
-        name="judge_id"
-        label="Имя судьи"
-        errors={errors?.judge_id}
-        value={data?.judge_id}
-      />
       <TextAria
         name="description"
         label="Описание"
@@ -66,7 +69,7 @@ const TrialForm = ({
         value={data?.description}
         col={2}
       />
-      {!(id === '') && (
+      {!!id && (
         <Input
           name="id"
           label="Идендификационный номер"

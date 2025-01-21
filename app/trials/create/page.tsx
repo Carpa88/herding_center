@@ -14,11 +14,7 @@ const Page = () => {
     initialState,
   );
   const correctTypeError = useMemo(() => {
-    if (
-      state.error &&
-      typeof state.error === 'object' &&
-      'name' in state.error
-    ) {
+    if (state && typeof state.error === 'object' && 'name' in state.error) {
       return state.error as PartialTrial;
     }
     return undefined;
