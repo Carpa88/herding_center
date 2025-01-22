@@ -1,9 +1,9 @@
 'use server';
 
 import { sql } from '@vercel/postgres';
-import { ITrial, ITrialError } from '../types';
+import { CreateTrial, ITrial, ITrialError } from '../types';
 import { API_BASE_URL } from '@app/_lib/consts';
-import { IResponseData } from '@app/_lib/types';
+import { IFormState, IResponseData } from '@app/_lib/types';
 import { ERROR_MES_REQUEST } from '../consts';
 import { redirect } from '@node_modules/next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -88,6 +88,7 @@ export const fetchTrial = async (id: string) => {
         id,
       },
     });
+
     if (!response.ok) {
       const { message, error } = await response.json();
       return {
@@ -106,24 +107,35 @@ export const fetchTrial = async (id: string) => {
 };
 
 export const updateTrial = async (
-  state: IResponseData<ITrial, ITrialError>,
+  state: IFormState<ITrialError>,
   formData: FormData,
-): Promise<IResponseData<ITrial, ITrialError>> => {
-  const body = {
+): Promise<IResponseData<string, ITrialError>> => {
+  const id = state.data;
+  const validatedFields = CreateTrial.safeParse({
     name: formData.get('name'),
     start_at: formData.get('start_at'),
     ends_on: formData.get('ends_on'),
     judge_id: formData.get('judge_id'),
     description: formData.get('description'),
-  };
+  });
 
+  if (!validatedFields.success) {
+    return {
+      error: validatedFields.error.flatten().fieldErrors,
+      message: 'Не все поля заполнены корректно',
+      data: null,
+    };
+  }
+  const body = { id, ...validatedFields.data };
+  console.error('id in stringify', JSON.stringify(body));
   try {
-    const response = await fetch(`${API_BASE_URL}/trials/update`, {
+    const response = await fetch(`${API_BASE_URL}trials/update`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        data: JSON.stringify(body),
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {

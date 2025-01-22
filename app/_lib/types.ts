@@ -6,6 +6,7 @@ export interface INavigation {
 export interface IFormState<T> {
   error: Partial<T> | Error | string;
   message: string;
+  data: string | null;
 }
 
 export interface IData {

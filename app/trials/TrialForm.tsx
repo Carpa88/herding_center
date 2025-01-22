@@ -19,7 +19,6 @@ const TrialForm = ({
   description?: string;
 }) => {
   const [data, setData] = useState<ITrial | null>(null);
-
   useEffect(() => {
     if (!id) {
       return;
@@ -35,6 +34,10 @@ const TrialForm = ({
 
     fetchData();
   }, [id]);
+
+  if (!data) {
+    return <div>... Загружаем данные</div>;
+  }
   return (
     <Section title={title} description={description}>
       <Input
@@ -69,16 +72,6 @@ const TrialForm = ({
         value={data?.description}
         col={2}
       />
-      {!!id && (
-        <Input
-          name="id"
-          label="Идендификационный номер"
-          errors={errors?.id}
-          value={data?.id}
-          col={2}
-          disabled
-        />
-      )}
     </Section>
   );
 };
