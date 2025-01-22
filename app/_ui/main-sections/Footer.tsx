@@ -6,7 +6,7 @@ const FooterBlock = ({ data }: { data: Record<string, string> }) => (
   <div>
     <p className="py-3 font-semibold tracking-tight text-lg">{data.name}</p>
     <ul>
-      {Object.entries(footer.company)
+      {Object.entries(data)
         .slice(1)
         .map(([key, value]) => (
           <li className="py-1" key={key}>
