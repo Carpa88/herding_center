@@ -19,3 +19,9 @@ export interface IResponseData<T, Y> {
   message: string;
   data: T | null;
 }
+
+export interface IUser {
+  email: string;
+  password: string;
+  // role?: 'user' | 'admin';
+}
