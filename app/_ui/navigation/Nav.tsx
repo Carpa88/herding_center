@@ -10,7 +10,7 @@ import MobileNavigation from './MobileNavigation';
 
 const Nav = () => {
   const pathname = usePathname();
-  const isAuthorized = true;
+  const isAuthorized = false;
 
   return (
     <Disclosure as="nav" className="bg-amber-800">
@@ -29,7 +29,7 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      <MobileNavigation pathname={pathname} />
+      <MobileNavigation pathname={pathname} isAuthorized={isAuthorized} />
     </Disclosure>
   );
 };
