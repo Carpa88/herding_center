@@ -26,9 +26,6 @@ importers:
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
-      bcryptjs:
-        specifier: ^2.4.3
-        version: 2.4.3
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -67,7 +64,7 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       '@types/bcrypt':
-        specifier: 5.0.2
+        specifier: ^5.0.2
         version: 5.0.2
       '@types/bcryptjs':
         specifier: ^2.4.6
@@ -710,9 +707,6 @@ packages:
   bcrypt@5.1.1:
     resolution: {integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==}
     engines: {node: '>= 10.0.0'}
-
-  bcryptjs@2.4.3:
-    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -2832,8 +2826,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  bcryptjs@2.4.3: {}
 
   binary-extensions@2.3.0: {}
 
