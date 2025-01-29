@@ -1,7 +1,7 @@
 'use server';
 
 import { signIn } from '@/auth';
-import { ILoginError, LoginSchema, SignupSchema } from './types';
+import { ILoginError, ISinginError, LoginSchema, SignupSchema } from './types';
 import { IFormState, IResponseData } from '@app/_lib/types';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { ERROR_MES_REQUEST } from '@app/trials/consts';
@@ -12,7 +12,7 @@ import { redirect } from '@node_modules/next/navigation';
 export const authenticate = async (
   prevState: IFormState<ILoginError>,
   formData: FormData,
-) => {
+): Promise<IResponseData<string, ILoginError>> => {
   const validatedFields = LoginSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
@@ -27,23 +27,37 @@ export const authenticate = async (
   }
   const { email, password } = validatedFields.data;
   try {
-    await fetch(`${API_BASE_URL}/user/login`, {
+    const response = await fetch(`${API_BASE_URL}/user/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
+
+    if (!response.ok) {
+      console.error('response', response);
+      const message = await response.json();
+      return {
+        error: 'ошибка',
+        message,
+        data: null,
+      };
+    }
   } catch (error) {
     console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+    return {
+      error: error as Error,
+      message: ERROR_MES_REQUEST,
+      data: null,
+    };
   }
   revalidatePath('/profile');
   redirect('/profile');
 };
 
 export const signup = async (
-  prevState: IFormState<ILoginError>,
+  prevState: IFormState<ISinginError>,
   formData: FormData,
-): Promise<IResponseData<string, ILoginError>> => {
+): Promise<IResponseData<string, ISinginError>> => {
   const validatedFields = SignupSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
