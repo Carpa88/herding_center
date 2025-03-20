@@ -77,3 +77,20 @@ export const POST = async (
     });
   }
 };
+
+export const DELETE = async (
+  request: Request,
+): Promise<NextResponse<Record<string, string>>> => {
+  const id = await request.json();
+  try {
+    await sql`DELETE FROM trials WHERE id = ${id}`;
+    return NextResponse.json({
+      message: 'Successfully',
+    });
+  } catch (error) {
+    console.error('Database error:', error);
+    return NextResponse.json({
+      message: ERROR_MES_RESPONSE,
+    });
+  }
+};

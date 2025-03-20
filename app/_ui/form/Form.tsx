@@ -33,7 +33,7 @@ const Form = ({
 
       <button
         type="submit"
-        className={`${buttonClass} rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600`}
+        className={`${buttonClass} rounded-md bg-buttonDefault px-3 py-2 text-sm font-semibold text-textDefault shadow-sm hover:bg-buttonHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buttonActive`}
         disabled={buttonState}
         aria-disabled={buttonState}
       >
@@ -43,8 +43,8 @@ const Form = ({
     <div className="flex h-8 items-end space-x-1">
       {!!errorMessage && (
         <>
-          <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-          <p className="text-sm text-red-500">{errorMessage}</p>
+          <ExclamationCircleIcon className="h-5 w-5 text-textError" />
+          <p className="text-sm text-textError">{errorMessage}</p>
         </>
       )}
     </div>

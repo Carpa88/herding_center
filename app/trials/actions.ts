@@ -1,6 +1,5 @@
 'use server';
 
-import { sql } from '@vercel/postgres';
 import { CreateTrial, ITrial, ITrialError } from './types';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { IFormState, IResponseData } from '@app/_lib/types';
@@ -71,11 +70,15 @@ export const fetchFilteredTrials = async (
 
 export const deleteTrial = async (id: string) => {
   try {
-    await sql`DELETE FROM trials WHERE id = ${id}`;
-    return { message: 'Соревнование удалено', success: true };
+    const result = await fetch(`${API_BASE_URL}/trials`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(id),
+    });
+    return { message: result.json().then(mes => mes), success: true };
   } catch (error) {
     console.error('Delete operation failed:', error);
-    return { message: 'Ошибка доступа к базе данных.', success: false };
+    return { message: ERROR_MES_REQUEST, success: false };
   }
 };
 

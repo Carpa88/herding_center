@@ -8,7 +8,7 @@ export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
 ): Promise<NextResponse<IResponseData<ITrial, string>>> => {
-  const id = params.id;
+  const id = await params.id;
   try {
     const result = await sql<ITrial>`SELECT * FROM trials WHERE id = ${id}`;
 
@@ -27,7 +27,7 @@ export const PUT = async (
   request: Request,
   { params }: { params: { id: string } },
 ): Promise<NextResponse<IResponseData<string, ITrialError>>> => {
-  const id = params.id;
+  const id = await params.id;
   const body = await request.json();
   const { name, start_at, ends_on, judge_id, description } = body;
 

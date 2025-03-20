@@ -78,7 +78,7 @@ const Table = ({
                       <div>
                         <div className="mb-2 flex items-center">
                           <p>
-                            <span className="text-sm text-slate-500 font-machine">
+                            <span className="text-sm text-textSecondary font-machine">
                               судья:
                             </span>{' '}
                             {item.judge_id}
@@ -127,7 +127,7 @@ const Table = ({
                         ) {
                           return key === 'name' ? (
                             <td
-                              className="whitespace-nowrap py-3 pr-3 hover:text-amber-600"
+                              className="whitespace-nowrap py-3 pr-3 underline underline-offset-2  hover:text-buttonHover"
                               key={key}
                             >
                               <Link
