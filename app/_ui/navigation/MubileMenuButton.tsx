@@ -2,7 +2,7 @@ import { DisclosureButton } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const MubileMenuButton = () => (
-  <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-amber-800 p-2 text-slate-400 hover:bg-amber-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800">
+  <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-bgDarkShadow p-2 text-textLight ">
     <span className="absolute -inset-0.5" />
     <span className="sr-only">Open main menu</span>
     <Bars3Icon

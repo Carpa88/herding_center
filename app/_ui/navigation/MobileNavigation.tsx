@@ -1,5 +1,5 @@
 import { DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { BellIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { navigation, user, userNavigation } from '@app/_lib/consts';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ const MobileNavigation = ({
 }) => (
   <DisclosurePanel className="md:hidden">
     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      {navigation.map((item) => (
+      {navigation.map(item => (
         <DisclosureButton
           key={item.name}
           as={Link}
@@ -22,8 +22,8 @@ const MobileNavigation = ({
           aria-current={item.href === pathname ? 'page' : undefined}
           className={clsx(
             item.href === pathname
-              ? 'bg-amber-900 text-white'
-              : 'text-amber-300 hover:bg-amber-700 hover:text-white',
+              ? 'bg-bgDarkShadow text-bgDefault'
+              : 'text-textLight',
             'block rounded-md px-3 py-2 text-base font-medium',
           )}
         >
@@ -31,7 +31,7 @@ const MobileNavigation = ({
         </DisclosureButton>
       ))}
     </div>
-    <div className="border-t border-amber-700 pb-3 pt-4">
+    <div className="border-t border-borderDark pb-3 pt-4">
       {isAuthorized ? (
         <>
           <div className="flex items-center px-5">
@@ -43,33 +43,25 @@ const MobileNavigation = ({
                   className="size-10 rounded-full"
                 />
               ) : (
-                <UserCircleIcon className="size-8 rounded-full text-white" />
+                <UserCircleIcon className="size-8 rounded-full text-textDefault" />
               )}
             </div>
             <div className="ml-3">
-              <div className="text-base/5 font-medium text-white">
+              <div className="text-base/5 font-medium text-textDefault">
                 {user.name}
               </div>
-              <div className="text-sm font-medium text-slate-400">
+              <div className="text-sm font-medium text-textSecondary">
                 {user.email}
               </div>
             </div>
-            <button
-              type="button"
-              className="relative ml-auto shrink-0 rounded-full bg-amber-800 p-1 text-amber-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
-            </button>
           </div>
           <div className="mt-3 space-y-1 px-2">
-            {userNavigation.map((item) => (
+            {userNavigation.map(item => (
               <DisclosureButton
                 key={item.name}
                 as={Link}
                 href={item.href}
-                className="block rounded-md px-3 py-2 text-base font-medium text-slate-400 hover:bg-slate-700 hover:text-white"
+                className="block rounded-md px-3 py-2 text-base font-medium text-textSecondary"
               >
                 {item.name}
               </DisclosureButton>
@@ -80,7 +72,7 @@ const MobileNavigation = ({
         <DisclosureButton
           as={Link}
           href="/login"
-          className="block rounded-md px-3 py-2 text-base font-medium text-slate-400 hover:bg-slate-700 hover:text-white"
+          className="block rounded-md px-3 py-2 text-base font-medium text-textPrimary"
         >
           Войти
         </DisclosureButton>

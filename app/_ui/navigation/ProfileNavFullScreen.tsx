@@ -1,20 +1,11 @@
 import { user, userNavigation } from '@app/_lib/consts';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { BellIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import Link from '@node_modules/next/link';
 import Image from 'next/image';
 
 const ProfileNavFullScreen = ({ isAuthorized }: { isAuthorized: boolean }) => (
   <div className="ml-4 flex items-center md:ml-6">
-    <button
-      type="button"
-      className="relative rounded-full bg-amber-800 p-1 text-amber-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800"
-    >
-      <span className="absolute -inset-1.5" />
-      <span className="sr-only">View notifications</span>
-      <BellIcon aria-hidden="true" className="size-6" />
-    </button>
-
     {/* Profile dropdown */}
     <Menu as="div" className="relative ml-3">
       <div>
@@ -30,10 +21,10 @@ const ProfileNavFullScreen = ({ isAuthorized }: { isAuthorized: boolean }) => (
       </div>
       <MenuItems
         transition
-        className="absolute right-0 z-[12] mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+        className="absolute right-0 z-[12] mt-2 w-48 origin-top-right rounded-md bg-bgDefault py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
         {isAuthorized ? (
-          userNavigation.map((item) => (
+          userNavigation.map(item => (
             <MenuItem key={item.name}>
               <Link
                 href={item.href}
