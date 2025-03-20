@@ -24,6 +24,7 @@ const config: Config = {
         textDisabled: colors.orange[400],
         textLight: colors.orange[100],
         textDefault: colors.white,
+        textError: colors.red[600],
         buttonDefault: colors.orange[500],
         buttonHover: colors.orange[600],
         buttonActive: colors.orange[700],
