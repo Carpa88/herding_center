@@ -16,10 +16,12 @@ const config: Config = {
       colors: {
         bgPrimary: colors.orange[700],
         bgSoft: colors.orange[100],
+        bgDarkShadow: colors.orange[800],
         bgDefault: colors.white,
         textPrimary: colors.orange[950],
         textSecondary: colors.slate[500],
         textDisabled: colors.orange[400],
+        textLight: colors.orange[100],
         textDefault: colors.white,
         buttonDefault: colors.orange[500],
         buttonHover: colors.orange[600],
