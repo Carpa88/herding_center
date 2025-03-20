@@ -9,13 +9,13 @@ const ProfileNavFullScreen = ({ isAuthorized }: { isAuthorized: boolean }) => (
     {/* Profile dropdown */}
     <Menu as="div" className="relative ml-3">
       <div>
-        <MenuButton className="relative flex max-w-xs items-center rounded-full bg-amber-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-800">
+        <MenuButton className="relative flex max-w-xs items-center rounded-full bg-bgPrimary text-sm focus:outline-none focus:ring-2 focus:ring-bgDefault focus:ring-offset-2 focus:ring-offset-bgPrimary">
           <span className="absolute -inset-1.5" />
           <span className="sr-only">Откройте меню</span>
           {user.imageUrl ? (
             <Image alt="" src={user.imageUrl} className="size-8 rounded-full" />
           ) : (
-            <UserCircleIcon className="size-8 rounded-full text-white" />
+            <UserCircleIcon className="size-8 rounded-full text-textDefault" />
           )}
         </MenuButton>
       </div>
@@ -28,7 +28,7 @@ const ProfileNavFullScreen = ({ isAuthorized }: { isAuthorized: boolean }) => (
             <MenuItem key={item.name}>
               <Link
                 href={item.href}
-                className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100 data-[focus]:outline-none"
+                className="block px-4 py-2 text-sm text-textSecondary data-[focus]:bg-bgSoft data-[focus]:outline-none"
               >
                 {item.name}
               </Link>
@@ -38,7 +38,7 @@ const ProfileNavFullScreen = ({ isAuthorized }: { isAuthorized: boolean }) => (
           <MenuItem>
             <Link
               href="/login"
-              className="block px-4 py-2 text-sm text-slate-700 data-[focus]:bg-slate-100 data-[focus]:outline-none"
+              className="block px-4 py-2 text-sm text-textSecondary data-[focus]:underline underline-offset-1"
             >
               Войти
             </Link>
