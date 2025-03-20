@@ -12,8 +12,8 @@ const FullScreenNav = ({ pathname }: { pathname: string }) => (
           aria-current={item.href === pathname ? 'page' : undefined}
           className={clsx(
             item.href === pathname
-              ? 'border-b-2 border-orange-800 text-white rounded-none'
-              : 'text-slate-100 hover:bg-orange-700 hover:text-white',
+              ? 'border-b-2 border-borderDark text-textDefault rounded-none'
+              : 'text-slate-100 hover:bg-orange-700 hover:text-textDefault',
             'rounded-md px-3 py-2 text-sm font-medium',
           )}
         >

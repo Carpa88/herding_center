@@ -13,7 +13,7 @@ const Nav = () => {
   const isAuthorized = false;
 
   return (
-    <Disclosure as="nav" className="bg-amber-800">
+    <Disclosure as="nav" className="bg-bgPrimary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
