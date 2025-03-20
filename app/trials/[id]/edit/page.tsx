@@ -5,7 +5,7 @@ import { useActionState, useMemo } from 'react';
 import { updateTrial } from '../../actions';
 import PageCover from '@app/_ui/PageCover';
 import { PartialTrial } from '@app/trials/types';
-import TrialForm from '@app/trials/TrialForm';
+import TrialForm from '@app/_ui/trials/TrialForm';
 import { useParams } from '@node_modules/next/navigation';
 
 const Page = () => {

@@ -1,14 +1,35 @@
-import { IResponseData } from '@app/_lib/types';
+import { sql } from '@vercel/postgres';
 import { ERROR_MES_RESPONSE } from '@app/trials/consts';
-import { ITrial, ITrialError } from '@app/trials/types';
-import { sql } from '@node_modules/@vercel/postgres/dist';
 import { NextResponse } from 'next/server';
+import { IResponseData } from '@app/_lib/types';
+import { ITrial, ITrialError } from '@app/trials/types';
+
+export const GET = async (
+  request: Request,
+  { params }: { params: { id: string } },
+): Promise<NextResponse<IResponseData<ITrial, string>>> => {
+  const id = params.id;
+  try {
+    const result = await sql<ITrial>`SELECT * FROM trials WHERE id = ${id}`;
+
+    return NextResponse.json({ error: '', message: '', data: result.rows[0] });
+  } catch (error) {
+    console.error('Database Error:', error);
+    return NextResponse.json({
+      error: error as Error,
+      message: ERROR_MES_RESPONSE,
+      data: null,
+    });
+  }
+};
 
 export const PUT = async (
   request: Request,
+  { params }: { params: { id: string } },
 ): Promise<NextResponse<IResponseData<string, ITrialError>>> => {
+  const id = params.id;
   const body = await request.json();
-  const { id, name, start_at, ends_on, judge_id, description } = body;
+  const { name, start_at, ends_on, judge_id, description } = body;
 
   try {
     await sql<ITrial>`

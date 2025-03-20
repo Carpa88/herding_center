@@ -2,9 +2,9 @@
 
 import Input from '@app/_ui/form/Input';
 import Section from '@app/_ui/form/Section';
-import { ITrial, PartialTrial } from './types';
+import { ITrial, PartialTrial } from '@app/trials/types';
 import TextAria from '@app/_ui/form/TextAria';
-import { fetchTrial } from './(overview)/actions';
+import { fetchTrial } from '@app/trials/actions';
 import { useEffect, useState } from 'react';
 
 const TrialForm = ({

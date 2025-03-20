@@ -4,7 +4,7 @@ import { CreateButton } from '@app/_ui/buttons';
 import PageCover from '@app/_ui/PageCover';
 import Search from '@app/_ui/Search';
 import React, { Suspense } from 'react';
-import WrapperTable from './WrapperTable';
+import WrapperTable from '@app/_ui/trials/WrapperTable';
 import { TableSkeleton } from '@app/_ui/skeletons';
 import { colTrials } from '@app/trials/consts';
 

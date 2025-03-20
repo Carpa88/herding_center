@@ -2,9 +2,9 @@
 
 import Form from '@app/_ui/form/Form';
 import { useActionState, useMemo } from 'react';
-import { createTrial } from './actions';
+import { createTrial } from '@app/trials/actions';
 import PageCover from '@app/_ui/PageCover';
-import TrialForm from '../TrialForm';
+import TrialForm from '@app/_ui/trials/TrialForm';
 import { PartialTrial } from '../types';
 import { initialState } from '@app/_lib/consts';
 

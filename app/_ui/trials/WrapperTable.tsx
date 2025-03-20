@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Table from './Table';
-import { fetchTrialsPages } from './actions';
+import { fetchTrialsPages } from '../../trials/actions';
 import Pagination from '@app/_ui/Pagination';
 import { useSearchParams } from 'next/navigation';
 

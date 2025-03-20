@@ -1,10 +1,10 @@
 'use server';
 
 import { sql } from '@vercel/postgres';
-import { CreateTrial, ITrial, ITrialError } from '../types';
+import { CreateTrial, ITrial, ITrialError } from './types';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { IFormState, IResponseData } from '@app/_lib/types';
-import { ERROR_MES_REQUEST } from '../consts';
+import { ERROR_MES_REQUEST } from './consts';
 import { redirect } from '@node_modules/next/navigation';
 import { revalidatePath } from 'next/cache';
 
@@ -81,11 +81,10 @@ export const deleteTrial = async (id: string) => {
 
 export const fetchTrial = async (id: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/trials/details`, {
+    const response = await fetch(`${API_BASE_URL}/trials/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        id,
       },
     });
 
@@ -126,16 +125,14 @@ export const updateTrial = async (
       data: null,
     };
   }
-  const body = { id, ...validatedFields.data };
-  console.error('id in stringify', JSON.stringify(body));
   try {
-    const response = await fetch(`${API_BASE_URL}trials/update`, {
+    const response = await fetch(`${API_BASE_URL}trials/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(validatedFields.data),
     });
 
     if (!response.ok) {
@@ -143,6 +140,50 @@ export const updateTrial = async (
       return {
         error: error as Error,
         message: message as string,
+        data: null,
+      };
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+  }
+  revalidatePath('/trials');
+  redirect('/trials');
+};
+
+export const createTrial = async (
+  state: IFormState<ITrialError>,
+  formData: FormData,
+): Promise<IResponseData<string, ITrialError>> => {
+  const validatedFields = CreateTrial.safeParse({
+    name: formData.get('name'),
+    start_at: formData.get('start_at'),
+    ends_on: formData.get('ends_on'),
+    judge_id: formData.get('judge_id'),
+    description: formData.get('description'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      error: validatedFields.error.flatten().fieldErrors,
+      message: 'Не все поля заполнены корректно',
+      data: null,
+    };
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/trials`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(validatedFields),
+    });
+
+    if (!response.ok) {
+      console.error('response', response);
+      const { message, error } = await response.json();
+      return {
+        error: error as Error,
+        message,
         data: null,
       };
     }
