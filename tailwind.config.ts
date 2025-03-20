@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         bgPrimary: colors.orange[700],
         bgSoft: colors.orange[100],
+        bgSuperLight: colors.orange[50],
         bgDarkShadow: colors.orange[800],
         bgDefault: colors.white,
         textPrimary: colors.orange[950],

@@ -8,7 +8,7 @@ import WrapperTable from './WrapperTable';
 import { TableSkeleton } from '@app/_ui/skeletons';
 import { colTrials } from '@app/trials/consts';
 
-const page = () => (
+const TrialsList = () => (
   <PageCover title="Список соревнований">
     <div className="w-full">
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
@@ -24,4 +24,4 @@ const page = () => (
   </PageCover>
 );
 
-export default page;
+export default TrialsList;

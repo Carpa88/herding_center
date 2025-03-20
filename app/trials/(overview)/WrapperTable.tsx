@@ -11,12 +11,12 @@ const WrapperTable = () => {
   const query = searchParams?.get('query') || '';
   const currentPage = Number(searchParams?.get('page')) || 1;
 
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchTrialsPages(query);
-      setTotalPages(result.data || 1);
+      setTotalPages(result.data || 0);
     };
 
     fetchData();
@@ -25,7 +25,7 @@ const WrapperTable = () => {
   return (
     <>
       <Table query={query} currentPage={currentPage} />
-      {!!totalPages && (
+      {totalPages >= 1 && (
         <div className="mt-5 flex w-full justify-center">
           <Pagination totalPages={totalPages} />
         </div>
