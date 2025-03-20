@@ -35,7 +35,7 @@ const TrialForm = ({
     fetchData();
   }, [id]);
 
-  if (!data) {
+  if (!data && id) {
     return <div>... Загружаем данные</div>;
   }
   return (

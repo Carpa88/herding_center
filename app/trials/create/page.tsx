@@ -8,7 +8,7 @@ import TrialForm from '@app/_ui/trials/TrialForm';
 import { PartialTrial } from '../types';
 import { initialState } from '@app/_lib/consts';
 
-const Page = () => {
+const CreateTrial = () => {
   const [state, formAction, isPading] = useActionState(
     createTrial,
     initialState,
@@ -28,11 +28,11 @@ const Page = () => {
           description="Обязательно напишите название, укажите даты проведения а также расскажите участникам почему на ваше соревнование стоит пойти"
         />
         {state?.message && (
-          <p className="mt-2 text-sm text-red-800">{state.message}</p>
+          <p className="mt-2 text-sm text-textError">{state.message}</p>
         )}
       </Form>
     </PageCover>
   );
 };
 
-export default Page;
+export default CreateTrial;

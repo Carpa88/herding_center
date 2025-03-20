@@ -2,10 +2,7 @@
 
 import { DeleteButton, UpdateButtonIcon } from '@app/_ui/buttons';
 import { colTrials } from '@app/trials/consts';
-import {
-  deleteTrial,
-  fetchFilteredTrials,
-} from '@app/trials/actions';
+import { deleteTrial, fetchFilteredTrials } from '@app/trials/actions';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ITrial } from '@app/trials/types';
