@@ -12,7 +12,7 @@ const TestimonialBlock = ({
   mainBlock?: boolean;
 }) => (
   <div
-    className="bg-white p-3 my-4 border-2 rounded-lg shadow-lg font-serif text-pretty tracking-tight text-slate-600"
+    className="bg-white p-3 my-4 border-2 rounded-lg shadow-lg font-serif text-pretty tracking-tight text-textSecondary"
     id="testimonials"
   >
     <p
@@ -33,10 +33,10 @@ const TestimonialBlock = ({
         height={300}
       />
       <div className="pl-4">
-        <h3 className="text-base/7 font-semibold tracking-tight text-slate-900 pb-0">
+        <h3 className="text-base/7 font-semibold tracking-tight text-textPrimary pb-0">
           {item.userName}
         </h3>
-        <p className="text-sm/6 text-slate-400 leading-4">
+        <p className="text-sm/6 text-textSecondary leading-4">
           {item.userNic || '@user_nick'}
         </p>
       </div>
@@ -48,14 +48,14 @@ const Testimonials = () => (
   <div className="py-24 sm:py-16" id="testimonials">
     <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
       <div className="mx-auto max-w-2xl lg:text-center pb-11">
-        <h2 className="text-base/5 font-semibold text-amber-600">Отзывы</h2>
-        <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-balance">
+        <h2 className="text-base/5 font-semibold text-textDisabled">Отзывы</h2>
+        <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-textPrimary sm:text-5xl lg:text-balance">
           Мы работаем с сотнями потрясающих людей
         </p>
       </div>
       <div className="lg:flex flex-row flex-nowrap justify-center hidden md:hidden">
         <div className={`w-[25%] ${block_parent}`}>
-          {testimonials.slice(1, 4).map((item) => (
+          {testimonials.slice(1, 4).map(item => (
             <TestimonialBlock item={item} key={item.userName} />
           ))}
         </div>
@@ -63,19 +63,19 @@ const Testimonials = () => (
           <TestimonialBlock item={testimonials[1]} mainBlock />
           <div className="flex flex-row">
             <div className={`w-[50%] ${block_parent}`}>
-              {testimonials.slice(5, 7).map((item) => (
+              {testimonials.slice(5, 7).map(item => (
                 <TestimonialBlock item={item} key={item.userName} />
               ))}
             </div>
             <div className={` w-[50%] ${block_parent}`}>
-              {testimonials.slice(7, 9).map((item) => (
+              {testimonials.slice(7, 9).map(item => (
                 <TestimonialBlock item={item} key={item.userName} />
               ))}
             </div>
           </div>
         </div>
         <div className={` w-[25%] ${block_parent}`}>
-          {testimonials.slice(-3).map((item) => (
+          {testimonials.slice(-3).map(item => (
             <TestimonialBlock item={item} key={item.userName} />
           ))}
         </div>
@@ -84,7 +84,7 @@ const Testimonials = () => (
     <div className="mx-auto max-w-full px-4 max-md:max-w-2xl max-md:px-6 lg:hidden">
       <TestimonialBlock item={testimonials[1]} mainBlock />
       <div className="md:columns-2 sm:columns-1">
-        {testimonials.slice(1, 6).map((item) => (
+        {testimonials.slice(1, 6).map(item => (
           <TestimonialBlock item={item} key={item.userName} />
         ))}
       </div>
