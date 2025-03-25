@@ -1,16 +1,18 @@
-import { DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Button, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { navigation, user, userNavigation } from '@app/_lib/consts';
+import { navigation, userNavigation } from '@app/_lib/consts';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Authenticated } from '@app/_lib/types';
+import { signOut } from 'next-auth/react';
 
 const MobileNavigation = ({
   pathname,
-  isAuthorized,
+  user,
 }: {
   pathname: string;
-  isAuthorized: boolean;
+  user: Authenticated | null;
 }) => (
   <DisclosurePanel className="md:hidden">
     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
@@ -32,14 +34,15 @@ const MobileNavigation = ({
       ))}
     </div>
     <div className="border-t border-borderDark pb-3 pt-4">
-      {isAuthorized ? (
+      {!!user ? (
         <>
           <div className="flex items-center px-5">
             <div className="shrink-0">
-              {user.imageUrl ? (
+              <p>{user.name}</p>
+              {user.image ? (
                 <Image
                   alt=""
-                  src={user.imageUrl}
+                  src={user.image}
                   className="size-10 rounded-full"
                 />
               ) : (
@@ -56,22 +59,33 @@ const MobileNavigation = ({
             </div>
           </div>
           <div className="mt-3 space-y-1 px-2">
-            {userNavigation.map(item => (
-              <DisclosureButton
-                key={item.name}
-                as={Link}
-                href={item.href}
-                className="block rounded-md px-3 py-2 text-base font-medium text-textSecondary"
-              >
-                {item.name}
-              </DisclosureButton>
-            ))}
+            {userNavigation.map(item =>
+              item.href === '/signout' ? (
+                <DisclosureButton
+                  key={item.name}
+                  as={Button}
+                  onClick={() => signOut()}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-textDisabled"
+                >
+                  {item.name}
+                </DisclosureButton>
+              ) : (
+                <DisclosureButton
+                  key={item.name}
+                  as={Link}
+                  href={item.href}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-textDisabled"
+                >
+                  {item.name}
+                </DisclosureButton>
+              ),
+            )}
           </div>
         </>
       ) : (
         <DisclosureButton
           as={Link}
-          href="/login"
+          href="/api/auth/signin"
           className="block rounded-md px-3 py-2 text-base font-medium text-textPrimary"
         >
           Войти

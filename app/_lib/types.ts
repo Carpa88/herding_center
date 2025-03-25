@@ -25,3 +25,9 @@ export interface IUser {
   password: string;
   // role?: 'user' | 'admin';
 }
+
+export interface Authenticated {
+  email: string;
+  image: string;
+  name: string;
+}

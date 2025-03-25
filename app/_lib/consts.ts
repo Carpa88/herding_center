@@ -19,7 +19,7 @@ export const navigation: INavigation[] = [
 export const userNavigation = [
   { name: 'Ваш профиль', href: '#' },
   { name: 'Настройки', href: '#' },
-  { name: 'Выйти', href: '#' },
+  { name: 'Выйти', href: '/signout' },
 ];
 
 export const initialState = {

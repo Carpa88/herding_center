@@ -7,10 +7,12 @@ import FullScreenNav from './FullScreenNav';
 import ProfileNavFullScreen from './ProfileNavFullScreen';
 import MubileMenuButton from './MubileMenuButton';
 import MobileNavigation from './MobileNavigation';
+import { useSession } from 'next-auth/react';
+import { Authenticated } from '@app/_lib/types';
 
 const Nav = () => {
   const pathname = usePathname();
-  const isAuthorized = false;
+  const { data: session } = useSession() as { data: Authenticated | null };
 
   return (
     <Disclosure as="nav" className="bg-bgPrimary">
@@ -21,7 +23,7 @@ const Nav = () => {
             <FullScreenNav pathname={pathname} />
           </div>
           <div className="hidden md:block">
-            <ProfileNavFullScreen isAuthorized={isAuthorized} />
+            <ProfileNavFullScreen user={session} />
           </div>
           <div className="-mr-2 flex md:hidden">
             {/* Mobile version */}
@@ -29,7 +31,7 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      <MobileNavigation pathname={pathname} isAuthorized={isAuthorized} />
+      <MobileNavigation pathname={pathname} user={session} />
     </Disclosure>
   );
 };
