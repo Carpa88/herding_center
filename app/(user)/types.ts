@@ -50,7 +50,7 @@ export const SignupSchema = z
       .min(6, { message: 'Длина пароля должна быть не менее 6 символов' }),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine(data => data.password === data.confirmPassword, {
     message: 'Пароли не совпадают',
     path: ['confirmPassword'], // Поле, к которому относится ошибка
   });
