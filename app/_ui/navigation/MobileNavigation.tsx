@@ -1,18 +1,20 @@
+'use client';
+
 import { Button, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { navigation, userNavigation } from '@app/_lib/consts';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Authenticated } from '@app/_lib/types';
 import { signOut } from 'next-auth/react';
+import { Session } from '@node_modules/next-auth';
 
 const MobileNavigation = ({
   pathname,
-  user,
+  session,
 }: {
   pathname: string;
-  user: Authenticated | null;
+  session: Session | null;
 }) => (
   <DisclosurePanel className="md:hidden">
     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
@@ -34,15 +36,17 @@ const MobileNavigation = ({
       ))}
     </div>
     <div className="border-t border-borderDark pb-3 pt-4">
-      {user?.email ? (
+      {session?.user?.email ? (
         <>
           <div className="flex items-center px-5">
             <div className="shrink-0">
-              <p>{user.name}</p>
-              {user.image ? (
+              <p>{session.user.name}</p>
+              {session.user.image ? (
                 <Image
                   alt=""
-                  src={user.image}
+                  src={session.user.image}
+                  width={100}
+                  height={100}
                   className="size-10 rounded-full"
                 />
               ) : (
@@ -51,10 +55,10 @@ const MobileNavigation = ({
             </div>
             <div className="ml-3">
               <div className="text-base/5 font-medium text-textDefault">
-                {user.name}
+                {session.user.name}
               </div>
               <div className="text-sm font-medium text-textSecondary">
-                {user.email}
+                {session.user.email}
               </div>
             </div>
           </div>
