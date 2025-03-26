@@ -36,7 +36,7 @@ const ProfileNavFullScreen = ({ user }: { user: Authenticated | null }) => (
             item.href === '/signout' ? (
               <MenuItem key={item.name}>
                 <Button
-                  onClick={() => signOut()}
+                  onClick={() => signOut({ callbackUrl: '/' })}
                   className="block px-4 py-2 text-sm text-textSecondary data-[focus]:bg-bgSoft data-[focus]:outline-none"
                 >
                   {item.name}
