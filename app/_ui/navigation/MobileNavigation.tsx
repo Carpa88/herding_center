@@ -34,7 +34,7 @@ const MobileNavigation = ({
       ))}
     </div>
     <div className="border-t border-borderDark pb-3 pt-4">
-      {!!user ? (
+      {user?.email ? (
         <>
           <div className="flex items-center px-5">
             <div className="shrink-0">
@@ -64,7 +64,11 @@ const MobileNavigation = ({
                 <DisclosureButton
                   key={item.name}
                   as={Button}
-                  onClick={() => signOut()}
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: '/',
+                    })
+                  }
                   className="block rounded-md px-3 py-2 text-base font-medium text-textDisabled"
                 >
                   {item.name}
