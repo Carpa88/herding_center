@@ -17,7 +17,7 @@ export const navigation: INavigation[] = [
 ];
 
 export const userNavigation = [
-  { name: 'Ваш профиль', href: '#' },
+  { name: 'Ваш профиль', href: '/profile' },
   { name: 'Настройки', href: '#' },
   { name: 'Выйти', href: '/signout' },
 ];
