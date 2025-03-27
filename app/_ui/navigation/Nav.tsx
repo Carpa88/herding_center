@@ -28,7 +28,7 @@ const Nav = async () => {
           </div>
         </div>
       </div>
-      <MobileNavigation pathname={pathname || ''} session={null} />
+      <MobileNavigation pathname={pathname || ''} session={session} />
     </Disclosure>
   );
 };
