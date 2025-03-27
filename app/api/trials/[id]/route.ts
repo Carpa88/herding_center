@@ -6,9 +6,9 @@ import { ITrial, ITrialError } from '@app/trials/types';
 
 export const GET = async (
   request: Request,
-  { params }: { params: { id: string } },
 ): Promise<NextResponse<IResponseData<ITrial, string>>> => {
-  const id = await params.id;
+  const url = new URL(request.url);
+  const id = url.pathname.split('/').pop();
   try {
     const result = await sql<ITrial>`SELECT * FROM trials WHERE id = ${id}`;
 
@@ -25,9 +25,9 @@ export const GET = async (
 
 export const PUT = async (
   request: Request,
-  { params }: { params: { id: string } },
 ): Promise<NextResponse<IResponseData<string, ITrialError>>> => {
-  const id = await params.id;
+  const url = new URL(request.url);
+  const id = url.pathname.split('/').pop();
   const body = await request.json();
   const { name, start_at, ends_on, judge_id, description } = body;
 
