@@ -52,7 +52,7 @@ const Input = ({
         />
         {Array.isArray(errors) &&
           errors.map(error => (
-            <p className="mt-2 text-sm text-red-500" key="error">
+            <p className="mt-2 text-sm text-red-500" key={error.toString()}>
               {error}
             </p>
           ))}

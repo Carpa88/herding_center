@@ -13,8 +13,8 @@ export const authConfig: AuthOptions = {
     }),
     Credentials({
       credentials: {
-        email: { label: 'Электронная почта', type: 'email', required: true },
-        password: { label: 'Пароль', type: 'password', required: true },
+        email: { label: 'Электронная почта', type: 'email' },
+        password: { label: 'Пароль', type: 'password' },
       },
       async authorize(credentials) {
         const parsedCredentials = LoginSchema.safeParse(credentials);
@@ -27,7 +27,9 @@ export const authConfig: AuthOptions = {
           }
           const passwordsMatch = await bcrypt.compare(password, user.password);
           if (passwordsMatch) {
-            return user;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { password, ...userWithoutPass } = user;
+            return userWithoutPass;
           }
         }
 
@@ -36,4 +38,7 @@ export const authConfig: AuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+  },
 };
