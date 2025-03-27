@@ -38,8 +38,7 @@ const Login = () => {
 
     if (result?.error) {
       console.error('Ошибка входа:', result.error);
-    } else {
-      console.log('Успешный вход!');
+      return;
     }
     redirect('/profile');
   };

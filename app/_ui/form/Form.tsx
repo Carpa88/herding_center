@@ -1,14 +1,16 @@
 import { ExclamationCircleIcon } from '@node_modules/@heroicons/react/24/outline';
+import { FormEventHandler } from '@node_modules/@types/react';
 import Link from '@node_modules/next/link';
 
 const Form = ({
   children,
   formAction,
-  buttonState = true,
+  buttonState = false,
   href,
   buttonName,
   buttonClass,
   errorMessage,
+  onSubmit,
 }: {
   children: React.ReactNode;
   href?: string;
@@ -17,8 +19,9 @@ const Form = ({
   buttonName?: string;
   buttonClass?: string;
   errorMessage?: string;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
 }) => (
-  <form action={formAction}>
+  <form action={formAction} onSubmit={onSubmit}>
     <div className="space-y-12">{children}</div>
     <div className="mt-6 flex items-center justify-end gap-x-6">
       {!!href && (
