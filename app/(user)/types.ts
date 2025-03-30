@@ -48,11 +48,18 @@ export const LoginSchema = z.object({
 
 export const SignupSchema = z
   .object({
-    email: z.string().email(),
+    email: z
+      .string()
+      .nonempty({ message: 'Электронный адрес обязателен' })
+      .email({ message: 'Неверный формат электронного адреса' }),
     password: z
       .string()
+      .nonempty({ message: 'Пароль обязателен' })
       .min(6, { message: 'Длина пароля должна быть не менее 6 символов' }),
-    confirmPassword: z.string(),
+    confirmPassword: z
+      .string()
+      .nonempty({ message: 'Пароль обязателен' })
+      .min(6, { message: 'Длина пароля должна быть не менее 6 символов' }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Пароли не совпадают',
