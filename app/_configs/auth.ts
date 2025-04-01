@@ -4,6 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { LoginSchema } from '@app/(user)/types';
 import bcrypt from 'bcrypt';
 import { getUser } from '@app/(user)/action';
+import { API_BASE_URL } from '@app/_lib/consts';
 
 export const authConfig: AuthOptions = {
   providers: [
@@ -52,7 +53,28 @@ export const authConfig: AuthOptions = {
             token.role = dbUser.role;
             token.id = dbUser.id;
           } else {
-            // создать пользователя
+            // Пользователь не найден — создаём
+            const hashedPassword = await bcrypt.hash('google_oauth_dummy', 10);
+            try {
+              const response = await fetch(`${API_BASE_URL}/user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password: hashedPassword }),
+              });
+
+              if (response.ok) {
+                const result = await response.json();
+                const newUser = result.data;
+
+                token.role = newUser.role;
+                token.id = newUser.id;
+              }
+            } catch (error) {
+              console.error(
+                'Ошибка при создании пользователя через Google',
+                error,
+              );
+            }
           }
         }
       }

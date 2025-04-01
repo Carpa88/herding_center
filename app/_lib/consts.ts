@@ -9,8 +9,7 @@ export const user = {
 };
 
 export const navigation: INavigation[] = [
-  { name: 'Пастухи Беларуси', href: '/' },
-  // { name: 'Гостиница для собак', href: '/hostel' },
+  { name: 'Гостиница для собак', href: '/' },
   // { name: 'Тренировки', href: '/practices' },
   { name: 'Соревнования', href: '/trials' },
   // { name: 'Уроки', href: '/lessons' },
