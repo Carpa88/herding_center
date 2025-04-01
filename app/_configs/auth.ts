@@ -1,4 +1,4 @@
-import type { AuthOptions } from 'next-auth';
+import { AuthOptions } from '@node_modules/next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { LoginSchema } from '@app/(user)/types';
@@ -40,5 +40,37 @@ export const authConfig: AuthOptions = {
   ],
   pages: {
     signIn: '/login',
+  },
+  callbacks: {
+    async jwt({ token, user, account, profile }) {
+      if (account?.provider === 'google') {
+        const email = profile?.email;
+
+        if (email) {
+          const dbUser = await getUser(email);
+          if (dbUser) {
+            token.role = dbUser.role;
+            token.id = dbUser.id;
+          } else {
+            // создать пользователя
+          }
+        }
+      }
+
+      if (user?.role) {
+        token.role = user.role;
+        token.id = user.id;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role;
+        session.user.id = token.id;
+      }
+      return session;
+    },
   },
 };

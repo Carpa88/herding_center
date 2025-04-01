@@ -65,3 +65,10 @@ export const SignupSchema = z
     message: 'Пароли не совпадают',
     path: ['confirmPassword'], // Поле, к которому относится ошибка
   });
+
+export interface TakenUser {
+  id: string;
+  email: string;
+  password: string;
+  role: string;
+}

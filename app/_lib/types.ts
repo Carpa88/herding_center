@@ -3,10 +3,10 @@ export interface INavigation {
   href: string;
 }
 
-export interface IFormState<T> {
+export interface IFormState<Y, T> {
   error: Partial<T> | Error | string;
   message: string;
-  data: string | null;
+  data: Y | null;
 }
 
 export interface IData {
@@ -14,10 +14,10 @@ export interface IData {
   [key: string]: unknown;
 }
 
-export interface IResponseData<T, Y> {
-  error: Partial<Y> | Error | string;
+export interface IResponseData<Y, T> {
+  error: Partial<T> | Error | string;
   message: string;
-  data: T | null;
+  data: Y | null;
 }
 
 export interface IUser {

@@ -3,7 +3,7 @@
 import { API_BASE_URL } from '@app/_lib/consts';
 import { IFormState, IResponseData } from '@app/_lib/types';
 import { ERROR_MES_REQUEST } from '@app/trials/consts';
-import { ISinginError, IUser, SignupSchema } from './types';
+import { ISinginError, IUser, SignupSchema, TakenUser } from './types';
 import bcrypt from 'bcrypt';
 import { sql } from '@node_modules/@vercel/postgres/dist';
 
@@ -21,9 +21,9 @@ export const getUser = async (email: string): Promise<IUser | undefined> => {
 };
 
 export const signup = async (
-  prevState: IFormState<ISinginError>,
+  prevState: IFormState<TakenUser, ISinginError>,
   formData: FormData,
-): Promise<IResponseData<string, ISinginError>> => {
+): Promise<IResponseData<TakenUser, ISinginError>> => {
   const validatedFields = SignupSchema.safeParse({
     email: formData.get('email') ?? '',
     password: formData.get('password') ?? '',
@@ -46,7 +46,6 @@ export const signup = async (
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-    console.error('response', response);
     if (!response.ok) {
       const { message, error } = await response.json();
       return {
@@ -56,19 +55,18 @@ export const signup = async (
       };
     }
     const answer = await response.json();
-    // await signIn('credentials', formData);
-    // const data: string = await response.json();
+
     return {
       error: answer.error,
       message: answer.message,
-      data: answer.data,
+      data: { password, ...answer.data },
     };
   } catch (error) {
     console.error('Fetch error:', error);
     return {
-      error: prevState.error,
+      error: error as Error,
       message: ERROR_MES_REQUEST,
-      data: JSON.stringify(formData),
+      data: null,
     };
   }
 };

@@ -109,7 +109,7 @@ export const fetchTrial = async (id: string) => {
 };
 
 export const updateTrial = async (
-  state: IFormState<ITrialError>,
+  state: IFormState<string, ITrialError>,
   formData: FormData,
 ): Promise<IResponseData<string, ITrialError>> => {
   const id = state.data;
@@ -155,7 +155,7 @@ export const updateTrial = async (
 };
 
 export const createTrial = async (
-  state: IFormState<ITrialError>,
+  state: IFormState<string, ITrialError>,
   formData: FormData,
 ): Promise<IResponseData<string, ITrialError>> => {
   const validatedFields = CreateTrial.safeParse({
