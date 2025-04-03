@@ -21,15 +21,17 @@ const CreateTrial = () => {
   }, [state]);
   return (
     <PageCover title="Новое соревнование">
-      <Form buttonState={isPading} formAction={formAction} href="/trials">
+      <Form
+        buttonState={isPading}
+        formAction={formAction}
+        href="/trials"
+        errorMessage={state.message}
+      >
         <TrialForm
           errors={correctTypeError}
           title="Давайте проведем новое соревнование!"
           description="Обязательно напишите название, укажите даты проведения а также расскажите участникам почему на ваше соревнование стоит пойти"
         />
-        {state?.message && (
-          <p className="mt-2 text-sm text-textError">{state.message}</p>
-        )}
       </Form>
     </PageCover>
   );
