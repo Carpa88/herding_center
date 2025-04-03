@@ -4,6 +4,7 @@ import PageCover from '@app/_ui/PageCover';
 import Link from '@node_modules/next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { CreateButton } from '@app/_ui/buttons';
 
 const pits = [
   {
@@ -38,11 +39,13 @@ const pits = [
 
 const Profile = () => {
   const { data: session } = useSession();
-
   return (
     <PageCover title={session?.user?.name || 'Минуточку...'}>
       <div className="mx-auto grid w-full gap-20 px-6 lg:px-8">
         <div className="max-w-[1000px]">
+          <div className="flex justify-end">
+            <CreateButton href="pet/new" name="Добавить питомца" />
+          </div>
           <p className="mt-6 text-lg/8 text-textSecondary">
             Мы рады снова видеть тебя здесь. Хочешь посоревноваться? Скоро
             пройдёт замечательное{' '}

@@ -32,7 +32,7 @@ const Input = ({
       {!!label && (
         <label
           htmlFor={name}
-          className="block text-sm/6 font-medium text-slate-900"
+          className="block text-sm/6 font-medium text-textPrimary"
         >
           {label}
         </label>
@@ -45,7 +45,7 @@ const Input = ({
           placeholder={label}
           autoComplete={autoComplete || name}
           defaultValue={defaultValue}
-          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-900 outline outline-1 -outline-offset-1 outline-slate-300 placeholder:text-slate-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-amber-600 focus:shadow-none focus:ring-amber-500 sm:text-sm/6"
+          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-textPrimary outline outline-1 -outline-offset-1 outline-slate-300 placeholder:text-textSecondary focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-buttonHover focus:shadow-none focus:ring-buttonHover sm:text-sm/6 border border-gray-300 "
           value={inputValue}
           onChange={handleChange}
           disabled={disabled}
