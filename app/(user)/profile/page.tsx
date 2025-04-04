@@ -1,46 +1,18 @@
-'use client';
+'use server';
 
 import PageCover from '@app/_ui/PageCover';
 import Link from '@node_modules/next/link';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { CreateButton } from '@app/_ui/buttons';
+import { authConfig } from '@app/_configs/auth';
+import { getServerSession } from 'next-auth';
+import PetList from './PetList';
+import { getPets } from '@app/pet/actions';
 
-const pits = [
-  {
-    id: '465243',
-    name: 'Lucky',
-    breed: 'Border-coli',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    id: '05243',
-    name: 'Fly',
-    breed: 'Border-coli',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    id: '46593',
-    name: 'Oська',
-    breed: 'Border-coli',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    id: '43',
-    name: 'Четвертый',
-    breed: 'Border-coli',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-];
-
-const Profile = () => {
-  const { data: session } = useSession();
+const Profile = async () => {
+  const session = await getServerSession(authConfig);
+  const data = await getPets(session?.user?.id || '1');
   return (
-    <PageCover title={session?.user?.name || 'Минуточку...'}>
+    <PageCover title={session?.user?.name || 'Приветствуем!'}>
       <div className="mx-auto grid w-full gap-20 px-6 lg:px-8">
         <div className="max-w-[1000px]">
           <div className="flex justify-end">
@@ -68,31 +40,7 @@ const Profile = () => {
             ориентирована на безопасность и комфорт твоих друзей.
           </p>
         </div>
-        <div className="mx-auto w-full ">
-          <dl className="grid w-full sm:grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
-            {pits.map(pet => (
-              <Link key={pet.id} href={`/pet/${pet.id}`}>
-                <div className="bg-bgSoft rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                  <div className="relative w-full h-60">
-                    <Image
-                      src={pet.image}
-                      alt={pet.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-textPrimary">
-                      {pet.name}
-                    </h3>
-                    <p className="text-sm text-textDisabled">{pet.breed}</p>
-                    <p className="text-sm text-textSecondary">{pet.name}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </dl>
-        </div>
+        {data.data && <PetList data={data.data} />}
       </div>
     </PageCover>
   );
