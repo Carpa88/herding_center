@@ -52,6 +52,7 @@ export const authConfig: AuthOptions = {
           if (dbUser) {
             token.role = dbUser.role;
             token.id = dbUser.id;
+            token.name = user.name;
           } else {
             // Пользователь не найден — создаём
             const hashedPassword = await bcrypt.hash('google_oauth_dummy', 10);
@@ -68,6 +69,7 @@ export const authConfig: AuthOptions = {
 
                 token.role = newUser.role;
                 token.id = newUser.id;
+                token.name = newUser.name;
               }
             } catch (error) {
               console.error(
@@ -82,6 +84,7 @@ export const authConfig: AuthOptions = {
       if (user?.role) {
         token.role = user.role;
         token.id = user.id;
+        token.name = user.name;
       }
 
       return token;
@@ -91,6 +94,7 @@ export const authConfig: AuthOptions = {
       if (session.user) {
         session.user.role = token.role;
         session.user.id = token.id;
+        session.user.name = token.name;
       }
       return session;
     },
