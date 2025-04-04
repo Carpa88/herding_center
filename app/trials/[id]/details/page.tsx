@@ -1,15 +1,7 @@
 import PageCover from '@app/_ui/PageCover';
-import { fetchTrial } from '../../actions';
+import { fetchTrial } from '@app/trials/actions';
 import { format } from 'date-fns';
-
-const Item = ({ name, value }: { name: string; value: string }) => (
-  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-    <dt className="text-sm/6 font-medium text-slate-900">{name}</dt>
-    <dd className="mt-1 text-sm/6 text-slate-700 sm:col-span-2 sm:mt-0">
-      {value}
-    </dd>
-  </div>
-);
+import { Item } from '@app/_ui/Item';
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const trialID = (await params).id;
