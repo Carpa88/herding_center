@@ -31,3 +31,9 @@ export interface Authenticated {
   image: string;
   name: string;
 }
+
+export interface Props {
+  params: {
+    id: string;
+  };
+}

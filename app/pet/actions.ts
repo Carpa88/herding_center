@@ -89,6 +89,32 @@ export const getPets = async (
   }
 };
 
-export const getPet = async () => {
-  //достаем данные собаки
+export const getPet = async (
+  petID: string,
+  ownerID: string,
+): Promise<IResponseData<IDog, string>> => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/pet/${petID}?ownerID=${ownerID}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+    if (!response.ok) {
+      console.error('response', response);
+      const { message, error } = await response.json();
+      return {
+        error: error as Error,
+        message,
+        data: null,
+      };
+    }
+
+    const result: IResponseData<IDog, string> = await response.json();
+    return { error: '', message: '', data: result.data };
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+  }
 };
