@@ -118,3 +118,55 @@ export const getPet = async (
     return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
   }
 };
+
+export const editPet = async (
+  state: IFormState<IDog, IDogCreatedError>,
+  formData: FormData,
+): Promise<IResponseData<IDog, IDogCreatedError>> => {
+  const session = await getServerSession(authConfig);
+  const petID = state.data?.id;
+
+  const validatedFields = CreatePetSchema.safeParse({
+    name: formData.get('name'),
+    breed: formData.get('breed'),
+    birth_year: +(formData.get('birth_year') || 0),
+    type: formData.get('type'),
+    sex: formData.get('sex'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      error: validatedFields.error.flatten().fieldErrors,
+      message: 'Не все поля заполнены корректно',
+      data: null,
+    };
+  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/pet/${petID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: petID,
+        owner_id: session?.user.id,
+        ...validatedFields.data,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('response', response);
+      const { message, error } = await response.json();
+      return {
+        error: error as Error,
+        message,
+        data: null,
+      };
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+  }
+  revalidatePath('/profile');
+  redirect('/profile');
+};
+
+export const deletePet = async () => {};

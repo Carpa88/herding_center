@@ -1,6 +1,7 @@
-import { Props } from '@app/_lib/types';
-import { IDog } from '@app/pet/types';
+import { IResponseData, Props } from '@app/_lib/types';
+import { IDog, PartialDog } from '@app/pet/types';
 import { ERROR_MES_RESPONSE } from '@app/trials/consts';
+import { NextResponse } from '@node_modules/next/server';
 import { sql } from '@vercel/postgres';
 
 export const GET = async (request: Request, { params }: Props) => {
@@ -23,10 +24,37 @@ export const GET = async (request: Request, { params }: Props) => {
   }
 };
 
-export const DELETE = async () => {
-  ///удаляем конкрутную собаку
+export const PUT = async (
+  request: Request,
+): Promise<NextResponse<IResponseData<string, PartialDog>>> => {
+  const req = await request.json();
+  const { name, breed, birth_year, sex, owner_id, type, id } = req;
+
+  try {
+    await sql<IDog>`UPDATE dogs
+    SET 
+      name=${name},
+      breed=${breed},
+      birth_year=${birth_year},
+      sex=${sex},
+      type=${type}
+      WHERE id = ${id} AND owner_id = ${owner_id}
+      `;
+    return NextResponse.json({
+      error: '',
+      message: 'Изменения выполнены успешно',
+      data: null,
+    });
+  } catch (error) {
+    console.error('Database error:', error);
+    return NextResponse.json({
+      error: error as Error,
+      message: ERROR_MES_RESPONSE,
+      data: null,
+    });
+  }
 };
 
-export const PUT = async () => {
-  ///Редактируем конкрутную собаку
+export const DELETE = async () => {
+  ///удаляем конкрутную собаку
 };

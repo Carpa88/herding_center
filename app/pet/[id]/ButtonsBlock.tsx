@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { putPet } from '../actions';
+import { deletePet } from '../actions';
 
 const linkStyle =
   'pr-2 text-buttonDefault hover:underline hover:text-buttonHover';
@@ -13,7 +13,7 @@ const ButtonBlock = ({ id }: { id: string }) => (
       <Link href={`${id}/edit`} className={buttonStyle}>
         Редактировать
       </Link>
-      <button className={buttonStyle} onClick={() => putPet(id)}>
+      <button className={buttonStyle} onClick={() => deletePet(id)}>
         Удалить
       </button>
     </div>
