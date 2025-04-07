@@ -55,6 +55,28 @@ export const PUT = async (
   }
 };
 
-export const DELETE = async () => {
-  ///удаляем конкрутную собаку
+export const DELETE = async (
+  request: Request,
+  { params }: Props,
+): Promise<NextResponse<IResponseData<string, string>>> => {
+  const url = new URL(request.url);
+  const ownerID = url.searchParams.get('ownerID');
+  const { id } = await params;
+
+  try {
+    await sql`DELETE FROM dogs WHERE id=${id} AND owner_id=${ownerID}`;
+
+    return NextResponse.json({
+      error: '',
+      message: 'Everything is OK',
+      data: null,
+    });
+  } catch (error) {
+    console.error('Database Error:', error);
+    return NextResponse.json({
+      error: error as Error,
+      message: ERROR_MES_RESPONSE,
+      data: null,
+    });
+  }
 };

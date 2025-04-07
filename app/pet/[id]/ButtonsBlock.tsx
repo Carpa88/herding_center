@@ -7,13 +7,13 @@ const linkStyle =
 const buttonStyle =
   'px-4 py-3 mr-2 text-buttonDefault outline outline-2 hover:text-buttonHover';
 
-const ButtonBlock = ({ id }: { id: string }) => (
+const ButtonBlock = ({ id, ownID }: { id: string; ownID: string }) => (
   <div>
     <div className="w-full flex justify-end mb-5">
       <Link href={`${id}/edit`} className={buttonStyle}>
         Редактировать
       </Link>
-      <button className={buttonStyle} onClick={() => deletePet(id)}>
+      <button className={buttonStyle} onClick={() => deletePet(id, ownID)}>
         Удалить
       </button>
     </div>

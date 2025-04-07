@@ -40,7 +40,7 @@ const Pet = async ({ params }: Props) => {
               />
             </dl>
           </div>
-          <ButtonBlock id={id} />
+          <ButtonBlock id={id} ownID={session?.user.id || '1'} />
         </div>
         <Image
           alt="Product screenshot"
