@@ -1,4 +1,6 @@
-export const PET_TYPES = [
+import { Option } from './types';
+
+export const PET_TYPES: Option[] = [
   { label: 'Пес', value: 'dog' },
   {
     label: 'Кот',
@@ -6,7 +8,7 @@ export const PET_TYPES = [
   },
 ];
 
-export const PET_SEX = [
+export const PET_SEX: Option[] = [
   { label: 'Кавалер', value: 'male' },
   {
     label: 'Дама',

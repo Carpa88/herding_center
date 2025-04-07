@@ -59,3 +59,8 @@ const PetFormSchema = z.object({
 });
 
 export const CreatePetSchema = PetFormSchema.omit({ id: true, owner_id: true });
+
+export interface Option {
+  label: string;
+  value: string;
+}

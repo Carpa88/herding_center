@@ -32,31 +32,30 @@ const Input = ({
       {!!label && (
         <label
           htmlFor={name}
-          className="block text-sm/6 font-medium text-textPrimary"
+          className="block mb-1 text-sm/6 font-medium text-textPrimary"
         >
           {label}
         </label>
       )}
-      <div className="mt-2">
-        <input
-          id={name}
-          name={name}
-          type={type || 'text'}
-          placeholder={label}
-          autoComplete={autoComplete || name}
-          defaultValue={defaultValue}
-          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-textPrimary outline outline-1 -outline-offset-1 outline-slate-300 placeholder:text-textSecondary focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-buttonHover focus:shadow-none focus:ring-buttonHover sm:text-sm/6 border border-gray-300 "
-          value={inputValue}
-          onChange={handleChange}
-          disabled={disabled}
-        />
-        {Array.isArray(errors) &&
-          errors.map(error => (
-            <p className="mt-2 text-sm text-red-500" key={error.toString()}>
-              {error}
-            </p>
-          ))}
-      </div>
+
+      <input
+        id={name}
+        name={name}
+        type={type || 'text'}
+        placeholder={label}
+        autoComplete={autoComplete || name}
+        defaultValue={defaultValue}
+        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-textPrimary outline outline-1 -outline-offset-1 outline-slate-300 placeholder:text-textSecondary focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-buttonHover focus:shadow-none focus:ring-buttonHover sm:text-sm/6 border border-gray-300 "
+        value={inputValue}
+        onChange={handleChange}
+        disabled={disabled}
+      />
+      {Array.isArray(errors) &&
+        errors.map(error => (
+          <p className="mt-2 text-sm text-red-500" key={error.toString()}>
+            {error}
+          </p>
+        ))}
     </div>
   );
 };
