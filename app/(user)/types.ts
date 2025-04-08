@@ -72,3 +72,23 @@ export interface TakenUser {
   password: string;
   role: string;
 }
+
+export interface FullProfile {
+  id: string;
+  user_id: string;
+  name?: string;
+  phone?: string;
+  image_url?: string;
+}
+
+export type CreateFullProfile = Omit<FullProfile, 'id'>;
+
+export interface FullProfileError {
+  id: string[];
+  user_id: string[];
+  name?: string[];
+  phone?: string[];
+  image_url?: string[];
+}
+
+export type PartialFullProfileError = Partial<FullProfileError>;
