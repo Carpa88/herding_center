@@ -92,3 +92,19 @@ export interface FullProfileError {
 }
 
 export type PartialFullProfileError = Partial<FullProfileError>;
+
+export const ProfileSchema = z.object({
+  name: z.string().refine(val => val === '' || val.length >= 2, {
+    message: 'Имя должно содержать не менее 2 символов',
+  }),
+  phone: z
+    .string()
+    .max(20, 'Максимум 20 символов')
+    .regex(/^\+?\d+$/, 'Допустимы только цифры и знак "+" в начале')
+    .refine(val => val === '' || val.length >= 6, {
+      message: 'Телефон должен содержать не менее 6 символов',
+    }),
+  image_url: z.string().refine(val => val === '' || val.length >= 6, {
+    message: 'URL изображения должен содержать не менее 6 символов',
+  }),
+});

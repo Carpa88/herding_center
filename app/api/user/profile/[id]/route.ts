@@ -12,7 +12,7 @@ export const GET = async (
 
   try {
     const result =
-      await sql<FullProfile>`SELECT * FROM profiles WHERE id=${id}`;
+      await sql<FullProfile>`SELECT * FROM profiles WHERE user_id=${id}`;
     return NextResponse.json({
       error: '',
       message: '',

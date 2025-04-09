@@ -37,3 +37,11 @@ export interface Props {
     id: string;
   };
 }
+
+export interface TypeRequest {
+  url: string;
+  method: 'PUT' | 'POST';
+  body: Record<string, string | undefined>;
+}
+
+export type ERRORS<P> = string | Error | P;
