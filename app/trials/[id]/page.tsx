@@ -3,7 +3,7 @@ import { fetchTrial } from '@app/trials/actions';
 import { format } from 'date-fns';
 import { Item } from '@app/_ui/Item';
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+const TrialPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const trialID = (await params).id;
   const trial = await fetchTrial(trialID);
   const data = trial.data;
@@ -36,4 +36,4 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default Page;
+export default TrialPage;

@@ -8,6 +8,7 @@ export interface ITrial {
   judge_id: string;
   description?: string;
   created_at?: Date;
+  is_active?: boolean;
 }
 
 export interface ITrialError {
@@ -18,6 +19,7 @@ export interface ITrialError {
   judge_id: string[];
   description?: string[];
   created_at?: string[];
+  is_active: string[];
 }
 
 export type PartialTrial = Partial<ITrialError>;
@@ -38,6 +40,7 @@ const FormSchema = z.object({
     .min(3, { message: 'Judge ID must be at least 3 characters long.' }),
   description: z.string().nullable(),
   created_at: z.date().nullable(),
+  is_active: z.boolean().default(false),
 });
 
 export const CreateTrial = FormSchema.omit({ id: true, created_at: true });

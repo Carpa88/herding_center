@@ -1,3 +1,5 @@
+import { ERROR_MES_REQUEST } from '@app/trials/consts';
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.
@@ -29,4 +31,31 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     '...',
     totalPages,
   ];
+};
+
+export const fetchErrorJson = async (
+  response: Response,
+): Promise<{ data: null; error: string | Error; message: string }> => {
+  const contentType = response.headers.get('content-type');
+
+  if (!response.ok) {
+    if (contentType && contentType.includes('application/json')) {
+      const { error, message } = await response.json();
+      return { data: null, error, message };
+    } else {
+      const text = await response.text();
+      console.error('Expected JSON but got HTML:', text);
+      return {
+        data: null,
+        error: 'server_error',
+        message: 'Сервер вернул HTML вместо JSON',
+      };
+    }
+  }
+  return await response.json();
+};
+
+export const fetchResponseCatch = (error: Error) => {
+  console.error('Fetch error:', error);
+  return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
 };
