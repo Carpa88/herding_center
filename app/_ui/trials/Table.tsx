@@ -64,9 +64,7 @@ const Table = ({
                     <div className="flex w-full items-center justify-between">
                       <div>
                         <p className="text-xl font-medium text-slate-900">
-                          <Link href={`/trials/${item.id}/details`}>
-                            {item.name}
-                          </Link>
+                          <Link href={`/trials/${item.id}`}>{item.name}</Link>
                         </p>
                       </div>
                       <div className="flex justify-end gap-2">
@@ -131,7 +129,7 @@ const Table = ({
                               key={key}
                             >
                               <Link
-                                href={`/trials/${item.id}/details`}
+                                href={`/trials/${item.id}`}
                                 key={key}
                                 className="hover:underline underline-offset-2 decoration-current"
                               >
