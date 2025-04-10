@@ -2,10 +2,11 @@
 
 import { CreateTrial, ITrial, ITrialError } from './types';
 import { API_BASE_URL } from '@app/_lib/consts';
-import { IFormState, IResponseData } from '@app/_lib/types';
+import { ERRORS, IFormState, IResponseData } from '@app/_lib/types';
 import { ERROR_MES_REQUEST } from './consts';
 import { redirect } from '@node_modules/next/navigation';
 import { revalidatePath } from 'next/cache';
+import { fetchErrorJson, fetchResponseCatch } from '@app/_lib/utils';
 
 export const fetchTrialsPages = async (
   query: string,
@@ -84,7 +85,7 @@ export const deleteTrial = async (id: string) => {
 
 export const fetchTrial = async (id: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/trials/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/trials/list/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -196,4 +197,21 @@ export const createTrial = async (
   }
   revalidatePath('/trials');
   redirect('/trials');
+};
+
+export const getLastTrial = async (): Promise<
+  IResponseData<ITrial, ERRORS<ITrialError>>
+> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/trials/last`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
+
+    return fetchErrorJson(response);
+  } catch (error) {
+    return fetchResponseCatch(error as Error);
+  }
 };
