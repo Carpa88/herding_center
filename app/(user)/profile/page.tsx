@@ -2,7 +2,6 @@
 
 import PageCover from '@app/_ui/PageCover';
 import Link from '@node_modules/next/link';
-import { CreateButton } from '@app/_ui/buttons';
 import { authConfig } from '@app/_configs/auth';
 import { getServerSession } from 'next-auth';
 import PetList from './PetList';
@@ -12,12 +11,13 @@ const Profile = async () => {
   const session = await getServerSession(authConfig);
   const data = await getPets(session?.user?.id || '1');
   return (
-    <PageCover title={session?.user?.name || 'Приветствуем!'}>
+    <PageCover
+      title={session?.user?.name || 'Приветствуем!'}
+      href="pet/new"
+      name="Добавить питомца"
+    >
       <div className="mx-auto grid w-full gap-20 px-6 lg:px-8">
         <div className="max-w-[1000px]">
-          <div className="flex justify-end">
-            <CreateButton href="pet/new" name="Добавить питомца" />
-          </div>
           <p className="mt-6 text-lg/8 text-textSecondary">
             Мы рады снова видеть тебя здесь. Хочешь посоревноваться? Скоро
             пройдёт замечательное{' '}
