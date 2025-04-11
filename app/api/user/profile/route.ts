@@ -8,10 +8,10 @@ export const POST = async (
   request: Request,
 ): Promise<NextResponse<IResponseData<string, string | Error>>> => {
   const body = await request.json();
-  const { user_id, name, phone, image_url } = body;
+  const { user_id, user_name, phone, image_url } = body;
 
   try {
-    await sql<CreateFullProfile>`INSERT INTO profiles (user_id, name, phone, image_url) VALUES (${user_id}, ${name}, ${phone}, ${image_url})`;
+    await sql<CreateFullProfile>`INSERT INTO profiles (user_id, user_name, phone, image_url) VALUES (${user_id}, ${user_name}, ${phone}, ${image_url})`;
 
     return NextResponse.json({
       error: '',

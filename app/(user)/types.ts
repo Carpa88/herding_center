@@ -76,7 +76,7 @@ export interface TakenUser {
 export interface FullProfile {
   id: string;
   user_id: string;
-  name?: string;
+  user_name?: string;
   phone?: string;
   image_url?: string;
 }
@@ -86,7 +86,7 @@ export type CreateFullProfile = Omit<FullProfile, 'id'>;
 export interface FullProfileError {
   id: string[];
   user_id: string[];
-  name?: string[];
+  user_name?: string[];
   phone?: string[];
   image_url?: string[];
 }
@@ -94,7 +94,7 @@ export interface FullProfileError {
 export type PartialFullProfileError = Partial<FullProfileError>;
 
 export const ProfileSchema = z.object({
-  name: z.string().refine(val => val === '' || val.length >= 2, {
+  user_name: z.string().refine(val => val === '' || val.length >= 2, {
     message: 'Имя должно содержать не менее 2 символов',
   }),
   phone: z

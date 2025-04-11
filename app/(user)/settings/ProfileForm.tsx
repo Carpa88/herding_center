@@ -5,16 +5,20 @@ import Section from '@app/_ui/form/Section';
 const ProfileForm = ({
   errors,
   data,
+  description,
+  title,
 }: {
   errors?: PartialFullProfileError;
   data?: FullProfile | null;
+  description?: string;
+  title: string;
 }) => (
-  <Section>
+  <Section title={title} description={description}>
     <Input
       name="name"
       label="Как к вам обращаться?"
-      errors={errors?.name}
-      value={data?.name || ''}
+      errors={errors?.user_name}
+      value={data?.user_name || ''}
       col={2}
     />
 
