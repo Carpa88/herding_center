@@ -16,7 +16,7 @@ const Input = ({
   name: string;
   label?: string;
   type?: 'text' | 'number' | 'email' | 'password';
-  col?: 2;
+  col?: 1 | 2;
   errors?: (string | number | boolean)[];
   defaultValue?: string | number | readonly string[];
   value?: string | number;
@@ -28,7 +28,7 @@ const Input = ({
     setInputValue(event.target.value);
   };
   return (
-    <div className={`md:col-span-${col ?? 1}`}>
+    <div className={`md:col-span-${col ?? 2}`}>
       {!!label && (
         <label
           htmlFor={name}

@@ -11,11 +11,11 @@ const ProfileForm = ({
   errors?: PartialFullProfileError;
   data?: FullProfile | null;
   description?: string;
-  title: string;
+  title?: string;
 }) => (
   <Section title={title} description={description}>
     <Input
-      name="name"
+      name="user_name"
       label="Как к вам обращаться?"
       errors={errors?.user_name}
       value={data?.user_name || ''}

@@ -10,9 +10,11 @@ import { useState } from 'react';
 const DogForm = ({
   errors,
   data,
+  border,
 }: {
   errors?: Partial<IDogCreatedError>;
   data?: IDog | null;
+  border?: boolean;
 }) => {
   const [sex, setSex] = useState<Option | null>(
     data
@@ -31,7 +33,7 @@ const DogForm = ({
       : PET_TYPES[0],
   );
   return (
-    <Section>
+    <Section border={border}>
       <Input
         name="name"
         label="Как зовут питомца"
