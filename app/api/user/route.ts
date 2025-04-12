@@ -1,20 +1,23 @@
-import { ERROR_MES_RESPONSE } from '@app/trials/consts';
+import { ERROR_MES_RESPONSE, SUCCESS_MESSAGE } from '@app/_lib/consts';
 import { NextResponse } from '@node_modules/next/server';
 import { sql } from '@node_modules/@vercel/postgres/dist';
+import { IResponseData, ID } from '@app/_lib/types';
 
-export const POST = async (request: Request) => {
+export const POST = async (
+  request: Request,
+): Promise<NextResponse<IResponseData<ID, Error | string>>> => {
   const req = await request.json();
   const { email, password } = req;
 
   try {
-    const result = await sql`
+    const result = await sql<ID>`
     INSERT INTO users (email, password)
     VALUES (${email}, ${password})
     RETURNING id, email, role;
   `;
     return NextResponse.json({
       error: '',
-      message: 'Вы зарегистрированы!',
+      message: SUCCESS_MESSAGE,
       data: result.rows[0],
     });
   } catch (error) {

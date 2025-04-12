@@ -1,5 +1,5 @@
 import { IResponseData } from '@app/_lib/types';
-import { ERROR_MES_RESPONSE } from '@app/trials/consts';
+import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { ITrial } from '@app/trials/types';
 import { sql } from '@node_modules/@vercel/postgres/dist';
 import { NextResponse } from 'next/server';
@@ -17,11 +17,6 @@ export const GET = async (): Promise<
 
     return NextResponse.json({ error: '', message: '', data: trials.rows[0] });
   } catch (error) {
-    console.error('Database Error:', error);
-    return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };

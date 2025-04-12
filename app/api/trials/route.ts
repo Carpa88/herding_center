@@ -1,5 +1,7 @@
-import { IResponseData } from '@app/_lib/types';
-import { ERROR_MES_RESPONSE, ITEMS_PER_PAGE } from '@app/trials/consts';
+import { SUCCESS_MESSAGE } from '@app/_lib/consts';
+import { ID, IResponseData } from '@app/_lib/types';
+import { fetchResponseAPICatch } from '@app/_lib/utils';
+import { ITEMS_PER_PAGE } from '@app/trials/consts';
 import { ITrial } from '@app/trials/types';
 import { sql } from '@node_modules/@vercel/postgres/dist';
 import { NextResponse } from 'next/server';
@@ -33,64 +35,51 @@ export const GET = async (
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
-    return NextResponse.json({ error: '', message: '', data: trials.rows });
-  } catch (error) {
-    console.error('Database Error:', error);
-    console.error('offset:', offset);
     return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
+      error: '',
+      message: SUCCESS_MESSAGE,
+      data: trials.rows,
     });
+  } catch (error) {
+    console.error('offset:', offset);
+    return fetchResponseAPICatch(error as Error);
   }
 };
 
 export const POST = async (
   request: Request,
-): Promise<NextResponse<IResponseData<string, string>>> => {
+): Promise<NextResponse<IResponseData<ID, string>>> => {
   const body = await request.json();
   const { name, start_at, ends_on, judge_id, description } = body.data;
 
-  if (!body.success) {
-    return NextResponse.json({
-      error: body.error.flatten().fieldErrors as string,
-      message: 'Не все поля заполнены. Запись не создана',
-      data: null,
-    });
-  }
   try {
-    await sql`
+    const request = await sql<ID>`
       INSERT INTO trials (name, start_at, ends_on, judge_id, description)
-      VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description})
+      VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description}) 
+      RETURNING id
     `;
     return NextResponse.json({
       error: '',
-      message: '',
-      data: 'Запись успешно создана',
+      message: 'Запись успешно создана',
+      data: request.rows[0],
     });
   } catch (error) {
-    console.error('Database error:', error);
-    return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };
 
 export const DELETE = async (
   request: Request,
-): Promise<NextResponse<Record<string, string>>> => {
+): Promise<NextResponse<IResponseData<null, string>>> => {
   const id = await request.json();
   try {
     await sql`DELETE FROM trials WHERE id = ${id}`;
     return NextResponse.json({
-      message: 'Successfully',
+      error: '',
+      message: SUCCESS_MESSAGE,
+      data: null,
     });
   } catch (error) {
-    console.error('Database error:', error);
-    return NextResponse.json({
-      message: ERROR_MES_RESPONSE,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };

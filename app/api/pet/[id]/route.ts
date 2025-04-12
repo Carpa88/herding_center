@@ -1,6 +1,7 @@
-import { IResponseData, Props } from '@app/_lib/types';
+import { SUCCESS_MESSAGE } from '@app/_lib/consts';
+import { ID, IResponseData, Props } from '@app/_lib/types';
+import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { IDog, PartialDog } from '@app/pet/types';
-import { ERROR_MES_RESPONSE } from '@app/trials/consts';
 import { NextResponse } from '@node_modules/next/server';
 import { sql } from '@vercel/postgres';
 
@@ -18,23 +19,18 @@ export const GET = async (
 
     return NextResponse.json({ error: '', message: '', data: result.rows[0] });
   } catch (error) {
-    console.error('Database Error:', error);
-    return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };
 
 export const PUT = async (
   request: Request,
-): Promise<NextResponse<IResponseData<string, PartialDog>>> => {
+): Promise<NextResponse<IResponseData<ID, PartialDog>>> => {
   const req = await request.json();
   const { name, breed, birth_year, sex, owner_id, type, id } = req;
 
   try {
-    await sql<IDog>`UPDATE dogs
+    const result = await sql<ID>`UPDATE dogs
     SET 
       name=${name},
       breed=${breed},
@@ -42,26 +38,22 @@ export const PUT = async (
       sex=${sex},
       type=${type}
       WHERE id = ${id} AND owner_id = ${owner_id}
+      RETURNING id
       `;
     return NextResponse.json({
       error: '',
-      message: 'Изменения выполнены успешно',
-      data: null,
+      message: SUCCESS_MESSAGE,
+      data: result.rows[0],
     });
   } catch (error) {
-    console.error('Database error:', error);
-    return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };
 
 export const DELETE = async (
   request: Request,
   { params }: Props,
-): Promise<NextResponse<IResponseData<string, string>>> => {
+): Promise<NextResponse<IResponseData<null, string>>> => {
   const url = new URL(request.url);
   const ownerID = url.searchParams.get('ownerID');
   const { id } = await params;
@@ -71,15 +63,10 @@ export const DELETE = async (
 
     return NextResponse.json({
       error: '',
-      message: 'Everything is OK',
+      message: SUCCESS_MESSAGE,
       data: null,
     });
   } catch (error) {
-    console.error('Database Error:', error);
-    return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: null,
-    });
+    return fetchResponseAPICatch(error as Error);
   }
 };

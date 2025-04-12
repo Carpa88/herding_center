@@ -1,7 +1,9 @@
 import { sql } from '@vercel/postgres';
-import { ERROR_MES_RESPONSE, ITEMS_PER_PAGE } from '@app/trials/consts';
+import { ITEMS_PER_PAGE } from '@app/trials/consts';
 import { NextResponse } from 'next/server';
 import { IResponseData } from '@app/_lib/types';
+import { fetchResponseAPICatch } from '@app/_lib/utils';
+import { SUCCESS_MESSAGE } from '@app/_lib/consts';
 
 export const GET = async (
   request: Request,
@@ -19,13 +21,12 @@ export const GET = async (
       trials.description ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    return NextResponse.json({ error: '', message: '', data: totalPages });
-  } catch (error) {
-    console.error('Database Error:', error);
     return NextResponse.json({
-      error: error as Error,
-      message: ERROR_MES_RESPONSE,
-      data: 0,
+      error: '',
+      message: SUCCESS_MESSAGE,
+      data: totalPages,
     });
+  } catch (error) {
+    return fetchResponseAPICatch(error as Error);
   }
 };
