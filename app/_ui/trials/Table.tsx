@@ -6,6 +6,7 @@ import { deleteTrial, fetchFilteredTrials } from '@app/trials/actions';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ITrial } from '@app/trials/types';
+import { useSession } from '@node_modules/next-auth/react';
 
 const SorryText = () => (
   <div className="w-full text-md font-medium text-textPrimary text-center">
@@ -21,7 +22,7 @@ const Table = ({
   currentPage: number;
 }) => {
   const [currentData, setCurrentData] = useState<ITrial[] | null>(null);
-
+  const session = useSession();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +44,7 @@ const Table = ({
 
   const handleClick = async (id: string): Promise<void> => {
     const result = await deleteTrial(id);
-    if (!result.success) {
+    if (!result.error) {
       console.error(result.message);
     } else {
       setCurrentData((currentData || []).filter(item => item.id !== id));
@@ -52,7 +53,7 @@ const Table = ({
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-bgSuperLight p-2 md:pt-0">
+        <div className="rounded-lg p-2 md:pt-0">
           {currentData?.length ? (
             <>
               <div className="md:hidden">
@@ -67,10 +68,12 @@ const Table = ({
                           <Link href={`/trials/${item.id}`}>{item.name}</Link>
                         </p>
                       </div>
-                      <div className="flex justify-end gap-2">
-                        <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
-                        <DeleteButton onClick={() => handleClick(item.id)} />
-                      </div>
+                      {session.data?.user.role === 'admin' && (
+                        <div className="flex justify-end gap-2">
+                          <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
+                          <DeleteButton onClick={() => handleClick(item.id)} />
+                        </div>
+                      )}
                     </div>
                     <div className="flex items-center justify-between border-b pb-4">
                       <div>
@@ -146,12 +149,18 @@ const Table = ({
                           );
                         }
                       })}
-                      <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                        <div className="flex justify-end gap-3">
-                          <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
-                          <DeleteButton onClick={() => handleClick(item.id)} />
-                        </div>
-                      </td>
+                      {session.data?.user.role === 'admin' && (
+                        <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                          <div className="flex justify-end gap-3">
+                            <UpdateButtonIcon
+                              href={`/trials/${item.id}/edit`}
+                            />
+                            <DeleteButton
+                              onClick={() => handleClick(item.id)}
+                            />
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
