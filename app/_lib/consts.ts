@@ -2,6 +2,10 @@ import { INavigation } from './types';
 
 export const API_BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/`;
 
+export const ERROR_MES_RESPONSE = 'Ошибка ответа сервера';
+export const ERROR_MES_REQUEST = 'Ошибка запроса к серверу';
+export const SUCCESS_MESSAGE = 'Все отлично получилось!';
+
 export const user = {
   name: 'Катя Катусова',
   email: 'tom@example.com',
