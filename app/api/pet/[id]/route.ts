@@ -1,5 +1,5 @@
 import { SUCCESS_MESSAGE } from '@app/_lib/consts';
-import { ID, IResponseData, Props } from '@app/_lib/types';
+import { IResponseData, Props } from '@app/_lib/types';
 import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { IDog, PartialDog } from '@app/pet/types';
 import { NextResponse } from '@node_modules/next/server';
@@ -17,7 +17,11 @@ export const GET = async (
     const result = await sql<IDog>`
     SELECT * FROM dogs WHERE id=${id} AND owner_id=${ownerID}`;
 
-    return NextResponse.json({ error: '', message: '', data: result.rows[0] });
+    return NextResponse.json({
+      error: '',
+      message: SUCCESS_MESSAGE,
+      data: result.rows[0],
+    });
   } catch (error) {
     return fetchResponseAPICatch(error as Error);
   }
@@ -25,12 +29,12 @@ export const GET = async (
 
 export const PUT = async (
   request: Request,
-): Promise<NextResponse<IResponseData<ID, PartialDog>>> => {
+): Promise<NextResponse<IResponseData<null, PartialDog>>> => {
   const req = await request.json();
   const { name, breed, birth_year, sex, owner_id, type, id } = req;
 
   try {
-    const result = await sql<ID>`UPDATE dogs
+    await sql`UPDATE dogs
     SET 
       name=${name},
       breed=${breed},
@@ -38,12 +42,11 @@ export const PUT = async (
       sex=${sex},
       type=${type}
       WHERE id = ${id} AND owner_id = ${owner_id}
-      RETURNING id
       `;
     return NextResponse.json({
       error: '',
       message: SUCCESS_MESSAGE,
-      data: result.rows[0],
+      data: null,
     });
   } catch (error) {
     return fetchResponseAPICatch(error as Error);
