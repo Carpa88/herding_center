@@ -1,4 +1,5 @@
-import { ERROR_MES_REQUEST } from '@app/trials/consts';
+import { ERROR_MES_REQUEST, ERROR_MES_RESPONSE } from '@app/_lib/consts';
+import { NextResponse } from 'next/server';
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
@@ -58,4 +59,13 @@ export const fetchErrorJson = async (
 export const fetchResponseCatch = (error: Error) => {
   console.error('Fetch error:', error);
   return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+};
+
+export const fetchResponseAPICatch = (error: Error) => {
+  console.error('Database Error:', error);
+  return NextResponse.json({
+    error: error as Error,
+    message: ERROR_MES_RESPONSE,
+    data: null,
+  });
 };
