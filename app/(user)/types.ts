@@ -103,7 +103,8 @@ export const ProfileSchema = z.object({
     .regex(/^\+?\d+$/, 'Допустимы только цифры и знак "+" в начале')
     .refine(val => val === '' || val.length >= 6, {
       message: 'Телефон должен содержать не менее 6 символов',
-    }),
+    })
+    .or(z.literal('')),
   image_url: z.string().refine(val => val === '' || val.length >= 6, {
     message: 'URL изображения должен содержать не менее 6 символов',
   }),
