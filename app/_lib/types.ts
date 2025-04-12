@@ -45,3 +45,7 @@ export interface TypeRequest {
 }
 
 export type ERRORS<P> = string | Error | P;
+
+export interface ID {
+  id: string;
+}
