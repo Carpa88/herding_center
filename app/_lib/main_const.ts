@@ -223,22 +223,15 @@ export const footer = {
   competitions: {
     name: 'Соревнования',
     '/trials': 'Все наши соревнования',
-    '/trialsлодло': 'Открыта запись на соревнование',
+    '/trials/last': 'Открыта запись на соревнование',
   },
   hostel: {
     name: 'Гостиница',
-    kasjcbewioijk: 'О Компании',
-    'as,ejbce67': 'Наши услуги',
-    asweuihbjsdf: 'Отзывы',
-    opqwdfibh: 'Цены',
-    'Ouljn joduswefbg': 'С чего начать',
+    '/hotel': 'Посмотреть свободные даты',
   },
   practicing: {
     name: 'Тренировки',
-    'sdefuhdso8v hn': 'О Компании',
-    scjnusodhiubg: 'Наши услуги',
-    cnojuihioo: 'Отзывы',
-    cjlosdcou: 'Цены',
-    dszcnoudu: 'С чего начать',
+    '/practicing': 'Посмотреть свободные даты',
+    '/practicing/lessons': 'Оформить платную подписку',
   },
 };
