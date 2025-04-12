@@ -23,7 +23,8 @@ export const GET = async (
         trials.ends_on,
         trials.judge_id,
         trials.description,
-        trials.created_at
+        trials.created_at,
+        trials.is_active
       FROM trials
       WHERE
         trials.name ILIKE ${`%${query}%`} OR
