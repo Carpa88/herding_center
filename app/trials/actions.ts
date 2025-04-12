@@ -89,14 +89,15 @@ export const updateTrial = async (
   formData: FormData,
 ): Promise<IResponseData<string, ITrialError>> => {
   const id = state.data;
+
   const validatedFields = CreateTrial.safeParse({
     name: formData.get('name'),
     start_at: formData.get('start_at'),
     ends_on: formData.get('ends_on'),
     judge_id: formData.get('judge_id'),
     description: formData.get('description'),
+    is_active: !!(formData.get('is_active') === 'true'),
   });
-
   if (!validatedFields.success) {
     return {
       error: validatedFields.error.flatten().fieldErrors,
@@ -105,7 +106,7 @@ export const updateTrial = async (
     };
   }
   try {
-    const response = await fetch(`${API_BASE_URL}trials/${id}`, {
+    const response = await fetch(`${API_BASE_URL}trials/list/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -132,6 +133,7 @@ export const createTrial = async (
     ends_on: formData.get('ends_on'),
     judge_id: formData.get('judge_id'),
     description: formData.get('description'),
+    is_active: formData.get('is_active'),
   });
 
   if (!validatedFields.success) {
@@ -141,7 +143,6 @@ export const createTrial = async (
       data: null,
     };
   }
-
   try {
     const response = await fetch(`${API_BASE_URL}/trials`, {
       method: 'POST',

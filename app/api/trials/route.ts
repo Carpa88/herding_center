@@ -51,12 +51,12 @@ export const POST = async (
   request: Request,
 ): Promise<NextResponse<IResponseData<ID, string>>> => {
   const body = await request.json();
-  const { name, start_at, ends_on, judge_id, description } = body.data;
+  const { name, start_at, ends_on, judge_id, description, is_active } = body;
 
   try {
     const request = await sql<ID>`
-      INSERT INTO trials (name, start_at, ends_on, judge_id, description)
-      VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description}) 
+      INSERT INTO trials (name, start_at, ends_on, judge_id, description, is_active)
+      VALUES (${name}, ${start_at}, ${ends_on}, ${judge_id}, ${description}, ${is_active}) 
       RETURNING id
     `;
     return NextResponse.json({

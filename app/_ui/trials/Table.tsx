@@ -1,6 +1,10 @@
 'use client';
 
-import { DeleteButton, UpdateButtonIcon } from '@app/_ui/buttons';
+import {
+  DeleteButton,
+  UpdateButtonIcon,
+  IsActiveButtonIcon,
+} from '@app/_ui/buttons';
 import { colTrials } from '@app/trials/consts';
 import { deleteTrial, fetchFilteredTrials } from '@app/trials/actions';
 import { useEffect, useState } from 'react';
@@ -70,6 +74,7 @@ const Table = ({
                       </div>
                       {session.data?.user.role === 'admin' && (
                         <div className="flex justify-end gap-2">
+                          {item.is_active && <IsActiveButtonIcon />}
                           <UpdateButtonIcon href={`/trials/${item.id}/edit`} />
                           <DeleteButton onClick={() => handleClick(item.id)} />
                         </div>
@@ -152,6 +157,7 @@ const Table = ({
                       {session.data?.user.role === 'admin' && (
                         <td className="whitespace-nowrap py-3 pl-6 pr-3">
                           <div className="flex justify-end gap-3">
+                            {item.is_active && <IsActiveButtonIcon />}
                             <UpdateButtonIcon
                               href={`/trials/${item.id}/edit`}
                             />

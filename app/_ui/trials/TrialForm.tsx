@@ -6,6 +6,7 @@ import { ITrial, PartialTrial } from '@app/trials/types';
 import TextAria from '@app/_ui/form/TextAria';
 import { fetchTrial } from '@app/trials/actions';
 import { useEffect, useState } from 'react';
+import Checkbox from '@app/_ui/form/Checkbox';
 
 const TrialForm = ({
   errors,
@@ -27,6 +28,7 @@ const TrialForm = ({
       try {
         const trial = await fetchTrial(id);
         setData(trial.data);
+        setAgreed(trial.data?.is_active || false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -34,6 +36,11 @@ const TrialForm = ({
 
     fetchData();
   }, [id]);
+
+  const [agreed, setAgreed] = useState<boolean>(false);
+  const handleCheckboxChange = (value: boolean) => {
+    setAgreed(value);
+  };
 
   if (!data && id) {
     return <div>... Загружаем данные</div>;
@@ -71,6 +78,13 @@ const TrialForm = ({
         errors={errors?.description}
         value={data?.description}
         col={2}
+      />
+      <Checkbox
+        name="is_active"
+        label="Позволить пользователям записываться на это соревнование?"
+        checked={agreed}
+        onChange={handleCheckboxChange}
+        errors={errors?.is_active}
       />
     </Section>
   );

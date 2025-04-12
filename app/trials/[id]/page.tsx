@@ -1,11 +1,12 @@
 import PageCover from '@app/_ui/PageCover';
-import { fetchTrial } from '@app/trials/actions';
+import { fetchTrial, getLastTrial } from '@app/trials/actions';
 import { format } from 'date-fns';
 import { Item } from '@app/_ui/Item';
 
 const TrialPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const trialID = (await params).id;
   const trial = await fetchTrial(trialID);
+  const lastTrial = await getLastTrial();
   const data = trial.data;
 
   if (!data) {
@@ -15,8 +16,13 @@ const TrialPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     ? format(new Date(data.created_at), 'yyyy-MM-dd')
     : 'Дата неизвестна';
 
+  const isLast = trial?.data?.id === lastTrial?.data?.id;
   return (
-    <PageCover title={data.name}>
+    <PageCover
+      title={data.name}
+      href={isLast ? `/trials/${trialID}/app` : ''}
+      name={isLast ? 'Записаться на соревнование' : ''}
+    >
       <div>
         <p className="mt-1 max-w-2xl text-sm/6 text-slate-500">
           {trial.data?.description}

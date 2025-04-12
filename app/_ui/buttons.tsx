@@ -1,4 +1,9 @@
-import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import {
+  PlusIcon,
+  PencilIcon,
+  TrashIcon,
+  CheckIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -56,4 +61,11 @@ export const Button = ({ children, className, ...rest }: ButtonProps) => (
   >
     {children}
   </button>
+);
+
+export const IsActiveButtonIcon = ({ name }: { name?: string }) => (
+  <span className="rounded-md border p-2 hover:bg-bgSoft">
+    {name && <span className="hidden md:block">{name} </span>}
+    <CheckIcon className="w-5" />
+  </span>
 );

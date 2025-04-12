@@ -21,28 +21,27 @@ export const GET = async (
 
 export const PUT = async (
   request: Request,
+  { params }: Props,
 ): Promise<NextResponse<IResponseData<ID, ITrialError>>> => {
-  const url = new URL(request.url);
-  const id = url.pathname.split('/').pop();
   const body = await request.json();
-  const { name, start_at, ends_on, judge_id, description } = body;
-
+  const { id } = await params;
+  const { name, start_at, ends_on, judge_id, description, is_active } = body;
   try {
-    const result = await sql<ID>`
+    await sql`
         UPDATE trials
         SET 
           name = ${name},
           start_at = ${start_at},
           ends_on = ${ends_on},
           judge_id = ${judge_id},
-          description = ${description}
+          description = ${description},
+          is_active = ${is_active}
         WHERE id = ${id}
-        RETURNING id
       `;
     return NextResponse.json({
       error: '',
       message: SUCCESS_MESSAGE,
-      data: result.rows[0],
+      data: null,
     });
   } catch (error) {
     return fetchResponseAPICatch(error as Error);

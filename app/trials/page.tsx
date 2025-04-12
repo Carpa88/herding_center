@@ -11,12 +11,13 @@ import { useSession } from 'next-auth/react';
 
 const TrialsList = () => {
   const session = useSession();
-
   const CurrentButton = () => {
     if (session.data?.user.role === 'admin') {
-      <CreateButton href="/trials/create" name="Создать соревнование" />;
+      return <CreateButton href="/trials/create" name="Создать соревнование" />;
     } else if (session.data?.user.role === 'user') {
-      <CreateButton href="/trials/last" name="Записаться на соревнования" />;
+      return (
+        <CreateButton href="/trials/last" name="Записаться на соревнования" />
+      );
     }
     return null;
   };

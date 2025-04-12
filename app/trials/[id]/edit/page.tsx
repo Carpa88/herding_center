@@ -23,16 +23,18 @@ const Page = () => {
   }, [state]);
   return (
     <PageCover title="Исправьте данные соревнования">
-      <Form buttonState={isPading} formAction={formAction} href="/trials">
+      <Form
+        buttonState={isPading}
+        formAction={formAction}
+        href="/trials"
+        errorMessage={state.message}
+      >
         <TrialForm
           errors={correctTypeError}
           title="Основной блок данных"
           description="Обязательно напишите название, укажите даты проведения а также расскажите участникам почему на ваше соревнование стоит пойти"
           id={typeof id === 'string' ? id : undefined}
         />
-        {state && state?.message && (
-          <p className="mt-2 text-sm text-red-800">{state.message}</p>
-        )}
       </Form>
     </PageCover>
   );
