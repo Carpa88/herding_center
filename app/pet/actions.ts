@@ -3,21 +3,18 @@
 import { authConfig } from '@app/_configs/auth';
 import { API_BASE_URL } from '@app/_lib/consts';
 import { IFormState, IResponseData } from '@app/_lib/types';
-import {
-  IDogCreatedError,
-  IDogCreated,
-  CreatePetSchema,
-  IDog,
-} from '@app/pet/types';
-import { ERROR_MES_REQUEST } from '@app/trials/consts';
+import { fetchErrorJson, fetchResponseCatch } from '@app/_lib/utils';
+import { IDogCreatedError, CreatePetSchema, IDog } from '@app/pet/types';
+import { ERROR_MES_REQUEST } from '@app/_lib/consts';
 import { redirect } from '@node_modules/next/navigation';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export const createPet = async (
-  state: IFormState<IDogCreated, IDogCreatedError>,
   formData: FormData,
-): Promise<IResponseData<IDogCreated, IDogCreatedError>> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  state?: IFormState<IDog, IDogCreatedError>,
+): Promise<IResponseData<IDog, IDogCreatedError>> => {
   const session = await getServerSession(authConfig);
 
   const validatedFields = CreatePetSchema.safeParse({
@@ -45,44 +42,22 @@ export const createPet = async (
       }),
     });
 
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
+    return fetchErrorJson(response);
   } catch (error) {
-    console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+    return fetchResponseCatch(error as Error);
   }
-  revalidatePath('/profile');
-  redirect('/profile');
 };
 
 export const getPets = async (
-  id: string,
-): Promise<IResponseData<IDog[], string>> => {
+  session_id: string,
+): Promise<IResponseData<IDog[], string | Error>> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/pet?id=${id}`, {
+    const response = await fetch(`${API_BASE_URL}/pet?id=${session_id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
-
-    const result: IResponseData<IDog[], string> = await response.json();
-    return { error: '', message: '', data: result.data };
+    return await fetchErrorJson(response);
   } catch (error) {
     console.error('Fetch error:', error);
     return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
@@ -92,7 +67,7 @@ export const getPets = async (
 export const getPet = async (
   petID: string,
   ownerID: string,
-): Promise<IResponseData<IDog, string>> => {
+): Promise<IResponseData<IDog, string | Error>> => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/pet/${petID}?ownerID=${ownerID}`,
@@ -101,21 +76,9 @@ export const getPet = async (
         headers: { 'Content-Type': 'application/json' },
       },
     );
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
-
-    const result: IResponseData<IDog, string> = await response.json();
-    return { error: '', message: '', data: result.data };
+    return fetchErrorJson(response);
   } catch (error) {
-    console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+    return fetchResponseCatch(error as Error);
   }
 };
 
@@ -152,18 +115,9 @@ export const editPet = async (
       }),
     });
 
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
+    fetchErrorJson(response);
   } catch (error) {
-    console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+    return fetchResponseCatch(error as Error);
   }
   revalidatePath('/profile');
   redirect('/profile');
@@ -179,18 +133,9 @@ export const deletePet = async (petID: string, ownerID: string) => {
       },
     );
 
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
+    fetchErrorJson(response);
   } catch (error) {
-    console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
+    return fetchResponseCatch(error as Error);
   }
   revalidatePath('/profile');
   redirect('/profile');

@@ -1,14 +1,9 @@
 'use server';
 
-import { API_BASE_URL } from '@app/_lib/consts';
+import { API_BASE_URL, ERROR_MES_REQUEST } from '@app/_lib/consts';
+import { ERRORS, IFormState, IResponseData } from '@app/_lib/types';
 import {
-  ERRORS,
-  IFormState,
-  IResponseData,
-  TypeRequest,
-} from '@app/_lib/types';
-import { ERROR_MES_REQUEST } from '@app/trials/consts';
-import {
+  CreateFullProfile,
   FullProfile,
   FullProfileError,
   ISinginError,
@@ -19,8 +14,7 @@ import {
 } from './types';
 import bcrypt from 'bcrypt';
 import { sql } from '@vercel/postgres';
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
+import { fetchErrorJson, fetchResponseCatch } from '@app/_lib/utils';
 
 export const getUser = async (email: string): Promise<IUser | undefined> => {
   try {
@@ -31,7 +25,7 @@ export const getUser = async (email: string): Promise<IUser | undefined> => {
       'Введенные данные не совпадают с записью в базе данных',
       error,
     );
-    throw new Error('Failed to fetch user.');
+    throw new Error('Не удалось подучить запись');
   }
 };
 
@@ -61,20 +55,11 @@ export const signup = async (
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-    if (!response.ok) {
-      const { message, error } = await response.json();
-      return {
-        error,
-        message,
-        data: null,
-      };
-    }
-    const answer = await response.json();
-
+    const result = await fetchErrorJson(response);
     return {
-      error: answer.error,
-      message: answer.message,
-      data: { password, ...answer.data },
+      error: result.error,
+      message: result.message,
+      data: { ...(result.data as unknown as TakenUser), password },
     };
   } catch (error) {
     console.error('Fetch error:', error);
@@ -95,24 +80,39 @@ export const getProfile = async (
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response.ok) {
-      const { message, error } = await response.json();
-      return {
-        error,
-        message,
-        data: null,
-      };
-    }
-
-    const answer = await response.json();
-    return answer;
+    return fetchErrorJson(response);
   } catch (error) {
-    console.error('Fetch error:', error);
-    return {
-      error: error as Error,
-      message: ERROR_MES_REQUEST,
-      data: null,
-    };
+    return fetchResponseCatch(error as Error);
+  }
+};
+
+export const createProfile = async (
+  body: CreateFullProfile,
+): Promise<IResponseData<FullProfile, ERRORS<FullProfileError>>> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}user/profile`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return fetchErrorJson(response);
+  } catch (error) {
+    return fetchResponseCatch(error as Error);
+  }
+};
+
+export const editProfile = async (
+  body: FullProfile,
+): Promise<IResponseData<FullProfile, ERRORS<FullProfileError>>> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}user/profile/${body.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return fetchErrorJson(response);
+  } catch (error) {
+    return fetchResponseCatch(error as Error);
   }
 };
 
@@ -121,7 +121,7 @@ export const setProfile = async (
   formData: FormData,
 ): Promise<IResponseData<FullProfile, ERRORS<FullProfileError>>> => {
   const validatedFields = ProfileSchema.safeParse({
-    name: formData.get('name'),
+    name: formData.get('user_name'),
     phone: formData.get('phone'),
     image_url: formData.get('image_url'),
   });
@@ -133,46 +133,16 @@ export const setProfile = async (
       data: null,
     };
   }
+  const response = state.data?.id
+    ? await editProfile({
+        id: state.data.id,
+        user_id: state.data.user_id,
+        ...validatedFields.data,
+      })
+    : await createProfile({
+        user_id: state.data?.user_id || '',
+        ...validatedFields.data,
+      });
 
-  const typeRequest: TypeRequest = state.data?.id
-    ? {
-        url: `${API_BASE_URL}user/profile/${state.data.id}`,
-        method: 'PUT',
-        body: {
-          id: state.data.id,
-          user_id: state.data.user_id,
-          ...validatedFields.data,
-        },
-      }
-    : {
-        url: `${API_BASE_URL}user/profile`,
-        method: 'POST',
-        body: {
-          user_id: state.data?.user_id,
-          ...validatedFields.data,
-        },
-      };
-
-  try {
-    const response = await fetch(`${typeRequest.url}`, {
-      method: typeRequest.method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(typeRequest.body),
-    });
-
-    if (!response.ok) {
-      console.error('response', response);
-      const { message, error } = await response.json();
-      return {
-        error: error as Error,
-        message,
-        data: null,
-      };
-    }
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return { error: error as Error, message: ERROR_MES_REQUEST, data: null };
-  }
-  revalidatePath('/profile');
-  redirect('/profile');
+  return response;
 };

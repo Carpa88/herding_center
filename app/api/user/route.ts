@@ -1,16 +1,17 @@
 import { ERROR_MES_RESPONSE, SUCCESS_MESSAGE } from '@app/_lib/consts';
 import { NextResponse } from '@node_modules/next/server';
 import { sql } from '@node_modules/@vercel/postgres/dist';
-import { IResponseData, ID } from '@app/_lib/types';
+import { IResponseData } from '@app/_lib/types';
+import { TakenUser } from '@app/(user)/types';
 
 export const POST = async (
   request: Request,
-): Promise<NextResponse<IResponseData<ID, Error | string>>> => {
+): Promise<NextResponse<IResponseData<TakenUser, Error | string>>> => {
   const req = await request.json();
   const { email, password } = req;
 
   try {
-    const result = await sql<ID>`
+    const result = await sql<TakenUser>`
     INSERT INTO users (email, password)
     VALUES (${email}, ${password})
     RETURNING id, email, role;
