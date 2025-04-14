@@ -1,13 +1,13 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
-import { ID, IResponseData, Props } from '@app/_lib/types';
+import { ID, IResponseData, ParamsType } from '@app/_lib/types';
 import { ITrial, ITrialError } from '@app/trials/types';
 import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { SUCCESS_MESSAGE } from '@app/_lib/consts';
 
 export const GET = async (
   request: Request,
-  { params }: Props,
+  { params }: ParamsType,
 ): Promise<NextResponse<IResponseData<ITrial, string>>> => {
   const { id } = await params;
   try {
@@ -21,7 +21,7 @@ export const GET = async (
 
 export const PUT = async (
   request: Request,
-  { params }: Props,
+  { params }: ParamsType,
 ): Promise<NextResponse<IResponseData<ID, ITrialError>>> => {
   const body = await request.json();
   const { id } = await params;

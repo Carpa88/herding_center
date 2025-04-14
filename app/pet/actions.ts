@@ -11,9 +11,8 @@ import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export const createPet = async (
+  state: IFormState<IDog, IDogCreatedError>,
   formData: FormData,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  state?: IFormState<IDog, IDogCreatedError>,
 ): Promise<IResponseData<IDog, IDogCreatedError>> => {
   const session = await getServerSession(authConfig);
 

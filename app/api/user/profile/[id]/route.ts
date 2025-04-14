@@ -1,13 +1,13 @@
 import { FullProfile } from '@app/(user)/types';
 import { SUCCESS_MESSAGE } from '@app/_lib/consts';
-import { ID, IResponseData, Props } from '@app/_lib/types';
+import { ID, IResponseData, ParamsType } from '@app/_lib/types';
 import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { NextResponse } from '@node_modules/next/server';
 import { sql } from '@vercel/postgres';
 
 export const GET = async (
   req: Request,
-  { params }: Props,
+  { params }: ParamsType,
 ): Promise<NextResponse<IResponseData<FullProfile, Error | string>>> => {
   const { id } = await params;
 
@@ -46,7 +46,7 @@ export const PUT = async (
 
 export const DELETE = async (
   req: Request,
-  { params }: Props,
+  { params }: ParamsType,
 ): Promise<NextResponse<IResponseData<null, Error | string>>> => {
   const { id } = await params;
 

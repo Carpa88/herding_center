@@ -32,11 +32,11 @@ export interface Authenticated {
   name: string;
 }
 
-export interface Props {
-  params: {
+export type ParamsType = {
+  params: Promise<{
     id: string;
-  };
-}
+  }>;
+};
 
 export interface TypeRequest {
   url: string;

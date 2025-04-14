@@ -2,8 +2,9 @@ import PageCover from '@app/_ui/PageCover';
 import { fetchTrial, getLastTrial } from '@app/trials/actions';
 import { format } from 'date-fns';
 import { Item } from '@app/_ui/Item';
+import { ParamsType } from '@app/_lib/types';
 
-const TrialPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+const TrialPage = async ({ params }: ParamsType) => {
   const trialID = (await params).id;
   const trial = await fetchTrial(trialID);
   const lastTrial = await getLastTrial();

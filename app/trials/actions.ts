@@ -1,7 +1,7 @@
 'use server';
 
 import { CreateTrial, ITrial, ITrialError } from './types';
-import { API_BASE_URL } from '@app/_lib/consts';
+import { API_BASE_URL, initialState } from '@app/_lib/consts';
 import { ERRORS, IFormState, IResponseData } from '@app/_lib/types';
 import { redirect } from '@node_modules/next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -210,7 +210,10 @@ export const applyApp = async (
         });
   const petID = formData.get('dog_id');
   const pet = {
-    id: petID === 'new' ? (await createPet(formData))?.data?.id : petID,
+    id:
+      petID === 'new'
+        ? (await createPet(initialState, formData))?.data?.id
+        : petID,
   };
   const body = {
     profile_id: request.data?.id,

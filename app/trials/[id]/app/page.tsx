@@ -1,5 +1,5 @@
 import { fetchTrial } from '@app/trials/actions';
-import { Props } from '@app/_lib/types';
+import { ParamsType } from '@app/_lib/types';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@app/_configs/auth';
 import { getProfile } from '@app/(user)/action';
@@ -8,7 +8,7 @@ import ClientTrial from './ClientTrial';
 import PageCover from '@app/_ui/PageCover';
 import Error from '@app/_ui/Error';
 
-const Application = async ({ params }: Props) => {
+const Application = async ({ params }: ParamsType) => {
   const { id } = await params;
   const trial = await fetchTrial(id);
   const session = await getServerSession(authConfig);

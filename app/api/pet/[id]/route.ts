@@ -1,13 +1,13 @@
 import { SUCCESS_MESSAGE } from '@app/_lib/consts';
-import { IResponseData, Props } from '@app/_lib/types';
+import { IResponseData, ParamsType } from '@app/_lib/types';
 import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { IDog, PartialDog } from '@app/pet/types';
-import { NextResponse } from '@node_modules/next/server';
+import { NextResponse, NextRequest } from '@node_modules/next/server';
 import { sql } from '@vercel/postgres';
 
 export const GET = async (
-  request: Request,
-  { params }: Props,
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse<IResponseData<IDog, Error | string>>> => {
   const url = new URL(request.url);
   const { id } = await params;
@@ -55,7 +55,7 @@ export const PUT = async (
 
 export const DELETE = async (
   request: Request,
-  { params }: Props,
+  { params }: ParamsType,
 ): Promise<NextResponse<IResponseData<null, string>>> => {
   const url = new URL(request.url);
   const ownerID = url.searchParams.get('ownerID');

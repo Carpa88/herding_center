@@ -3,13 +3,13 @@ import PageCover from '@app/_ui/PageCover';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import Image from 'next/image';
-import { Props } from '@app/_lib/types';
+import { ParamsType } from '@app/_lib/types';
 import { getPet } from '../actions';
 import { IMAGE, PET_SEX } from '../consts';
 import { Item } from '@app/_ui/Item';
 import ButtonBlock from './ButtonsBlock';
 
-const Pet = async ({ params }: Props) => {
+const Pet = async ({ params }: ParamsType) => {
   const session = await getServerSession(authConfig);
   const { id } = await params;
   const pet = await getPet(id, session?.user.id || '1');
