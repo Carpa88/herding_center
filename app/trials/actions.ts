@@ -17,7 +17,7 @@ export const fetchTrialsPages = async (
   query: string,
 ): Promise<IResponseData<number, string>> => {
   try {
-    const response = await fetch('/trials/totalPages', {
+    const response = await fetch(`${API_BASE_URL}/trials/totalPages`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -37,7 +37,7 @@ export const fetchFilteredTrials = async (
   currentPage: number,
 ): Promise<IResponseData<ITrial[], string | Error>> => {
   try {
-    const response = await fetch('/trials', {
+    const response = await fetch(`${API_BASE_URL}/trials`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
