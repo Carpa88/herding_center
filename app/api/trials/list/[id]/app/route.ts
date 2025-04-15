@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
-import { ID, IResponseData } from '@app/_lib/types';
+import { ID, IResponseData, ParamsType } from '@app/_lib/types';
 import { fetchResponseAPICatch } from '@app/_lib/utils';
 import { SUCCESS_MESSAGE } from '@app/_lib/consts';
+import { IApp } from '@app/trials/[id]/app/type';
 
 export const POST = async (
   request: Request,
@@ -25,6 +26,20 @@ export const POST = async (
   }
 };
 
-export const GET = async () => {
-  //Все анкеты для данного соревнования для Кати
+export const GET = async (
+  request: Request,
+  { params }: ParamsType,
+): Promise<NextResponse<IResponseData<IApp[], string | Error>>> => {
+  const { id } = await params;
+  try {
+    const result =
+      await sql<IApp>`SELECT * FROM applications WHERE trial_id=${id}`;
+    return NextResponse.json({
+      error: '',
+      message: SUCCESS_MESSAGE,
+      data: result.rows,
+    });
+  } catch (error) {
+    return fetchResponseAPICatch(error as Error);
+  }
 };
