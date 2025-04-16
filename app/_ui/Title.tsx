@@ -5,10 +5,12 @@ const Title = ({
   title,
   href,
   name,
+  plus = true,
 }: {
   title: string;
   href?: string;
   name?: string;
+  plus?: boolean;
 }) => (
   <header className="relative z-10 bg-bgDefault shadow">
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between">
@@ -21,7 +23,7 @@ const Title = ({
           className="flex h-10 items-center rounded-lg bg-buttonDefault px-4 text-sm font-medium text-textDefault transition-colors hover:bg-buttonHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buttonActive"
         >
           <span className="hidden md:block">{name}</span>{' '}
-          <PlusIcon className="h-5 md:ml-4" />
+          {plus && <PlusIcon className="h-5 md:ml-4" />}
         </Link>
       )}
     </div>

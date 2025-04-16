@@ -22,7 +22,13 @@ const TrialsList = () => {
     return null;
   };
   return (
-    <PageCover title="Список соревнований">
+    <PageCover
+      title="Список соревнований"
+      href="/trials/participants"
+      name="Список участников"
+      plus={false}
+    >
+      {/* <PageCover title="Список соревнований"> */}
       <div className="w-full">
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
           <Suspense>
