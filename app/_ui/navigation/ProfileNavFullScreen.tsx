@@ -16,13 +16,28 @@ import { Session } from '@node_modules/next-auth/core/types';
 
 const ProfileNavFullScreen = ({ session }: { session: Session | null }) => (
   <div className="ml-4 flex items-center md:ml-6">
-    {session?.user?.name && (
+    {session?.user.id ? (
       <Link
         href="/profile"
         className="text-textDefault underline underline-offset-2 hover:text-textDisabled"
       >
-        {session?.user?.name}
+        {session?.user?.name ? session?.user?.name : 'Мой профиль'}
       </Link>
+    ) : (
+      <>
+        <Link
+          href="/singup"
+          className="mr-3 text-textLight underline underline-offset-2 hover:text-textDisabled"
+        >
+          Зарегистрироваться
+        </Link>
+        <Link
+          href="/login"
+          className="text-textLight underline underline-offset-2 hover:text-textDisabled"
+        >
+          Войти
+        </Link>
+      </>
     )}
     {/* Profile dropdown */}
     <Menu as="div" className="relative ml-3">
@@ -47,7 +62,7 @@ const ProfileNavFullScreen = ({ session }: { session: Session | null }) => (
         transition
         className="absolute right-0 z-[12] mt-2 w-48 origin-top-right rounded-md bg-bgDefault py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
-        {session?.user?.email ? (
+        {session?.user?.email &&
           userNavigation.map(item =>
             item.href === '/signout' ? (
               <MenuItem key={item.name}>
@@ -68,17 +83,7 @@ const ProfileNavFullScreen = ({ session }: { session: Session | null }) => (
                 </Link>
               </MenuItem>
             ),
-          )
-        ) : (
-          <MenuItem>
-            <Link
-              href="/api/auth/signin"
-              className="block px-4 py-2 text-sm text-textSecondary data-[focus]:underline underline-offset-1"
-            >
-              Войти
-            </Link>
-          </MenuItem>
-        )}
+          )}
       </MenuItems>
     </Menu>
   </div>
