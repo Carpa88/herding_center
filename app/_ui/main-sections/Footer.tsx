@@ -23,7 +23,7 @@ const FooterBlock = ({ data }: { data: Record<string, string> }) => (
 );
 
 const Footer = () => (
-  <div className="bg-bgPrimary" id="footer">
+  <footer className="bg-bgPrimary" id="footer">
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="grid gap-20 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 md:pt-8 md:px-8 p-6 text-textDefault overflow-hidden">
         <div className="md:col-span-4 lg:col-span-2">
@@ -48,7 +48,7 @@ const Footer = () => (
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 );
 
 export default Footer;

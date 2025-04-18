@@ -5,7 +5,7 @@ import { Providers } from './_ui/Providers';
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html className="h-full bg-bgSuperLight" lang="en">
     <body className={'antialiased h-full'}>
-      <div className="min-h-full">
+      <div className="flex flex-col min-h-screen">
         <Providers>
           <Nav />
           {children}

@@ -16,11 +16,13 @@ const PageCover = ({
 }) => (
   <>
     <Title title={title} href={href} name={name} plus={plus} />
-    <main>
-      <div className="mx-auto max-w-7xl px-4 py-0 sm:px-6 lg:px-8">
-        <div className="bg-white py-6 px-4">{children}</div>
-      </div>
-    </main>
+    <div className="flex-1 bg-white">
+      <main className="flex-1">
+        <div className="mx-auto max-w-7xl px-4 py-0 sm:px-6 lg:px-8">
+          <div className="py-6 px-4">{children}</div>
+        </div>
+      </main>
+    </div>
     <Footer />
   </>
 );
